@@ -51,13 +51,14 @@
 
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">注册:</h4>
-          <form class="needs-validation" novalidate action="{{ url_for('web.register') }}" method="post">
+          <form class="needs-validation" method="post" novalidate>
             <div class="mb-3">
               <label for="username">登录用户名</label>
               <div class="input-group">
                 <input type="text" class="form-control" id="username"
+                       name="username"
                        value="{{ form.data['username'] | default('',true) }}"
-                       placeholder="用户名" required>
+                       placeholder="" required>
                 <div class="invalid-feedback" style="width: 100%;">
                   Your username is required.
                 </div>
@@ -67,6 +68,7 @@
             <div class="mb-3">
               <label for="password">密码</label>
               <input type="password" class="form-control" id="password"
+                     name="password"
                      value="{{ form.data['password'] | default('',true) }}"
                      placeholder="">
               <div class="invalid-feedback">
@@ -77,6 +79,7 @@
             <div class="mb-3">
               <label for="name">姓名</label>
               <input type="text" class="form-control" id="name"
+                     name="name"
                      value="{{ form.data['name'] | default('',true) }}"
                      placeholder="" required>
               <div class="invalid-feedback">
@@ -87,6 +90,7 @@
             <div class="mb-3">
               <label for="phone_number">手机号</label>
               <input type="text" class="form-control" id="phone_number"
+                     name="phone_number"
                      value="{{ form.data['phone_number'] | default('',true) }}"
                      placeholder="" required>
               <div class="invalid-feedback">
@@ -97,6 +101,7 @@
             <div class="mb-3">
               <label for="id_card_number">身份证号 <span class="text-muted">(Required)</span></label>
               <input type="text" class="form-control" id="id_card_number"
+                     name="id_card_number"
                      value="{{ form.data['id_card_number'] | default('',true) }}"
                      placeholder="">
               <div class="invalid-feedback">
@@ -119,10 +124,10 @@
 
 
     <script src="../static/js/jquery.slim.min.js"></script>
-      <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/vendor/jquery.slim.min.js') }}"><\/script>')</script><script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+      <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"><\/script>')</script><script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 
       
         <script src="../static/js/form-validation.js"></script>
-  </body>
 {% endblock %}
+  </body>
 </html>

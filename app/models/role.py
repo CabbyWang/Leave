@@ -16,7 +16,8 @@ class Section(db.Model):
 
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(30), unique=True, nullable=False)
-    users = relationship('User', backref='section', lazy='dynamic')
+    users = relationship('User')
+    # users = relationship('User', backref='section', lazy='dynamic')
 
 
 class Level(db.Model):
@@ -29,7 +30,7 @@ class Level(db.Model):
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(30), unique=True, nullable=False)
     # users = relationship('User')
-    users = relationship('User', backref='level', lazy='dynamic')
+    users = relationship('User')
 
 
 class Occupation(db.Model):
@@ -41,4 +42,4 @@ class Occupation(db.Model):
 
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(30), unique=True, nullable=False)
-    users = relationship('User', backref='occupation', lazy='dynamic')
+    users = relationship('User')

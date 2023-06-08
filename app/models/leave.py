@@ -4,6 +4,9 @@ from app import db
 from sqlalchemy import Column, Integer, DateTime, String
 
 
+class Apply(db.Model):
+    pass
+
 # class Leave(db.Model):
 #     id = Column(Integer, primary_key=True)
 #     user_id = Column(Integer, nullable=False)

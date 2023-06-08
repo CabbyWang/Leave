@@ -1,20 +1,70 @@
-{% extends 'base.html' %}
-{% block title %}Login{% endblock %}
-{% block content %}
-  <div class="container">
-    <h1>Login</h1>
-    <form method="POST" action="{{ url_for('web.login') }}">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>登录</title>
+
+{#    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">#}
+
+    
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/signin.css') }}" rel="stylesheet">
+  </head>
+  <body class="text-center">
+
+  {% block login %}
+    <form class="form-signin" method="post">
       {{ form.csrf_token }}
-      <div class="form-group">
-        {{ form.username.label }} {{ form.username(size=30) }}
-      </div>
-      <div class="form-group">
-        {{ form.password.label }} {{ form.password(size=30) }}
-      </div>
-{#      <div class="form-group">#}
-{#        {{ form.remember_me() }} {{ form.remember_me.label }}#}
-{#      </div>#}
-      <button type="submit" class="btn btn-primary">Login</button>
+      <img class="mb-4" src="{{ url_for('static', filename='brand/bootstrap-solid.svg') }}" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="text" id="username" name="username"
+             value="{{ form.data['username'] | default('',true) }}"
+             class="form-control" placeholder="Username" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="password" name="password"
+             value="{{ form.data['password'] | default('',true) }}"
+             class="form-control" placeholder="Password" required>
+      {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+          {% if message %}
+            <div class="alert alert-warning" role="alert">{{ message }}</div>
+          {% endif %}
+        {% endfor %}
+      {% endwith %}
+      <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 第四医学中心信息科</p>
     </form>
-  </div>
-{% endblock %}
+  {% endblock %}
+
+
+  </body>
+</html>

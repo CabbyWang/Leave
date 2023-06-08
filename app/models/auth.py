@@ -2,19 +2,19 @@ from flask_login import UserMixin
 from sqlalchemy.orm import relationship
 
 from app import db, login_manager
+from app.models.base import Base
 # from app.models import Base
 from app.models.role import Section, Level, Occupation
 from sqlalchemy import Column, String, Integer, ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-# class User(UserMixin, Base):
-class User(db.Model):
-    __tablename__ = 'user'
+class User(Base, UserMixin):
+    __tablename__ = 'users'
 
     id = Column(Integer, autoincrement=True, primary_key=True)
     username = Column(String(30), unique=True, nullable=False)
-    _password = Column('password', String(100), nullable=False)
+    _password = Column('password', String(110), nullable=False)
     phone_number = Column(String(18))
     id_card_number = Column(String(18), unique=True, nullable=False)
     section_id = Column(Integer, ForeignKey('section.id'), nullable=True)
@@ -35,6 +35,10 @@ class User(db.Model):
     def check_password(self, raw):
         return check_password_hash(self._password, raw)
 
-# @login_manager.user_loader
-# def get_user(uid):
-#     return User.query.get(int(uid))
+    # def get_id(self):
+    #     return self.id
+
+
+@login_manager.user_loader
+def get_user(uid):
+    return User.query.get(int(uid))

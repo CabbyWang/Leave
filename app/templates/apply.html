@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block main %}
+    <div class="row">
+
+        <div class="col-md-8 order-md-1">
+          <h4 class="mb-3">请假页面</h4>
+          <form class="needs-validation" method="post" novalidate>
+            <div class="mb-3">
+              <label for="username">登录用户名</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="username"
+                       name="username"
+                       value="{{ form.data['username'] | default('',true) }}"
+                       placeholder="" required>
+                <div class="invalid-feedback" style="width: 100%;">
+                  Your username is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password">密码</label>
+              <input type="password" class="form-control" id="password"
+                     name="password"
+{#                     value="{{ form.data['password'] | default('',true) }}"#}
+                     placeholder="">
+              <div class="invalid-feedback">
+                Please enter your Password.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="name">姓名</label>
+              <input type="text" class="form-control" id="name"
+                     name="name"
+{#                     value="{{ form.data['name'] | default('',true) }}"#}
+                     placeholder="" required>
+              <div class="invalid-feedback">
+                Please enter your Name.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="phone_number">手机号</label>
+              <input type="text" class="form-control" id="phone_number"
+                     name="phone_number"
+{#                     value="{{ form.data['phone_number'] | default('',true) }}"#}
+                     placeholder="" required>
+              <div class="invalid-feedback">
+                Please enter your Name.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_card_number">身份证号 <span class="text-muted">(Required)</span></label>
+              <input type="text" class="form-control" id="id_card_number"
+                     name="id_card_number"
+{#                     value="{{ form.data['id_card_number'] | default('',true) }}"#}
+                     placeholder="">
+              <div class="invalid-feedback">
+                Please enter a valid ID Card.
+              </div>
+            </div>
+
+            <hr class="mb-4">
+
+
+            <button class="btn btn-primary btn-lg btn-block" id="btn-submit" type="submit">申请</button>
+          </form>
+        </div>
+      </div>
+{% endblock %}

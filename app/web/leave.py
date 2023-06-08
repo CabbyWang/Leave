@@ -12,14 +12,6 @@ from app.models import base
 __author__ = 'cabbyw'
 
 from ..forms.auth import RegistrationForm
-from wtforms import Form
-
-
-@web.route('/')
-@login_required
-def index():
-    form = Form()
-    return render_template('admin.html', form=Form)
 
 
 @web.route('/login', methods=['GET', 'POST'])
@@ -37,25 +29,6 @@ def login():
         else:
             flash("账号或密码错误", category='login_error')
     return render_template('login.html', form=form)
-
-
-@web.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm(request.form)
-    if request.method == 'POST' and form.validate():
-        # user = User(
-        #     username=form.username.data,
-        #     id_card_number=form.id_card_number.data,
-        #     password=form.password.data,
-        #     phone_number=form.phone_number.data
-        # )
-        user = User()
-        user.set_attrs(form.data)
-
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for('web.login'))
-    return render_template('register.html', form=form)
 
 
 

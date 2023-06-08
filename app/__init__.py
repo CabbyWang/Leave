@@ -30,9 +30,9 @@ def create_app(config=None):
     Bootstrap(app)
 
     # 注册login模块
-    # login_manager.init_app(app)
-    # login_manager.login_view = 'web.login'
-    # login_manager.login_message = '请先登录或注册'
+    login_manager.init_app(app)
+    login_manager.login_view = 'web.login'
+    login_manager.login_message = '请先登录或注册'
 
     # 注册flask-cache模块
     # cache.init_app(app)
