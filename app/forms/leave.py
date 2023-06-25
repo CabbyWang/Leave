@@ -1,16 +1,25 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.validators import DataRequired
+from wtforms import Form, StringField, SelectMultipleField, IntegerField, DateField
+from wtforms.validators import DataRequired, ValidationError
+from datetime import datetime
 
 
-class ApplyForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    # id_card_number = StringField('ID Card Number', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    # remember_me = BooleanField('Remember Me')
-    # submit = SubmitField('Log In')
+class DropdownVehicle(Form):
 
-    def validate_username(self, field):
-        if 1 == 2:
-            raise ValidationError('xxx')
-        pass
+    vehicle = SelectMultipleField('交通工具', choices=[(1, '火车'), (2, '汽车')])
+
+
+class ApplyForm(Form):
+    vehicle_id = IntegerField('Vehicle', validators=[DataRequired()])
+    # vehicle = Column(String, nullable=False, comment='交通工具')
+    destination = StringField('Destination', validators=[DataRequired()])
+    cause = StringField('cause', validators=[DataRequired()])
+    leave_date = DateField('Leave_date', validators=[DataRequired()])
+    back_date = DateField('Back_date', validators=[DataRequired()])
+
+
+class CancelApplyForm(Form):
+    apply_id = IntegerField('Apply id', validators=[DataRequired()])
+
+
+class ReportBackForm(Form):
+    apply_id = IntegerField('Apply id', validators=[DataRequired()])

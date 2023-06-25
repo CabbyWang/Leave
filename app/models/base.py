@@ -2,29 +2,25 @@
 from contextlib import contextmanager
 from datetime import datetime
 
-# from sqlalchemy import Column, Integer, SmallInteger
 from flask import current_app
-# from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
 from sqlalchemy import Column, SmallInteger, Integer
 from sqlalchemy.orm.query import Query as _Query
-from flask_migrate import Migrate
 
 __all__ = ['db', 'Base']
-# __all__ = ['db']
 
 
-# class SQLAlchemy(_SQLAlchemy):
-#     @contextmanager
-#     def auto_commit(self, throw=True):
-#         try:
-#             yield
-#             self.session.commit()
-#         except Exception as e:
-#             self.session.rollback()
-#             current_app.logger.exception('%r' % e)
-#             if throw:
-#                 raise e
+class SQLAlchemy(_SQLAlchemy):
+    @contextmanager
+    def auto_commit(self, throw=True):
+        try:
+            yield
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            current_app.logger.exception('%r' % e)
+            if throw:
+                raise e
 
 
 class Query(_Query):
@@ -63,7 +59,7 @@ class Base(db.Model):
     def set_attrs(self, attrs):
         for key, value in attrs.items():
             if hasattr(self, key) and key != 'id':
-                setattr(self, key, value)
+                setattr(self, key, value or None)
 
 
 class BaseNoCreateTime(db.Model):

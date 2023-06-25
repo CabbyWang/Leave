@@ -1,9 +1,12 @@
 from flask import Flask
 from flask_login import LoginManager
+from flask_wtf import CSRFProtect
+
 from .config import Config
 from app.models.base import db
-from flask_bootstrap import Bootstrap
+# from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
+# from flask_wtf.csrf import CSRFProtect
 
 
 login_manager = LoginManager()
@@ -27,7 +30,7 @@ def create_app(config=None):
     # 注册SQLAlchemy
     db.init_app(app)
     migrate = Migrate(app, db)
-    Bootstrap(app)
+    # Bootstrap(app)
 
     # 注册login模块
     login_manager.init_app(app)
@@ -38,7 +41,7 @@ def create_app(config=None):
     # cache.init_app(app)
 
     # 注册CSRF保护
-    # csrf = CsrfProtect()
+    # csrf = CSRFProtect()
     # csrf.init_app(app)
 
     # register_api_blueprint(app)

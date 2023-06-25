@@ -1,0 +1,40 @@
+{% extends 'new_base.html' %}
+
+{% block frame %}
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+      <div class="mdc-card p-0">
+        <h6 class="card-title card-padding pb-0">您的已审列表</h6>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-left">姓名</th>
+                <th class="text-center">部门</th>
+                <th class="text-center">请假时间</th>
+                <th class="text-center">目的地</th>
+                <th class="text-center">离开日期</th>
+                <th class="text-center">返回日期</th>
+                <th class="text-center">审批结果</th>
+                <th class="text-center">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for approved in approved_list %}
+                <tr>
+                  <td class="text-left">{{ approved.applicant_name }}</td>
+                  <td class="text-center">{{ approved.applicant_section }}</td>
+                  <td class="text-center">{{ approved.apply_time }}</td>
+                  <td class="text-center">{{ approved.destination }}</td>
+                  <td class="text-center">{{ approved.leave_date }}</td>
+                  <td class="text-center">{{ approved.back_date }}</td>
+                  <td class="text-center">{{ approved.approve_status }}</td>
+                  <td class="text-center"><a href="#" class="link-success">审批详情</a></td>
+                </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+{% endblock %}

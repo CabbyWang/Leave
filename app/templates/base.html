@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>第四医学中心请销假系统</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- 时间选择器样式 -->
+    <link href="{{ url_for('static', filename='css/datepicker/gijgo.min.css') }}" rel="stylesheet">
+
+
+
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/dashboard.css" rel="stylesheet">
+    {% endblock %}
+  </head>
+  <body>
+
+    {% block navbar %}
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="{{ url_for('web.index') }}">第四医学中心</a>
+      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+{#      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">#}
+{#      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">#}
+        <label class="form-control form-control-dark w-100">请销假系统</label>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+{#          <label class="d-inline p-2 bg-primary text-white">你好! {{ current_user.name }}</label>#}
+          <a class="nav-link" href="{{ url_for('web.logout') }}">注销</a>
+        </li>
+      </ul>
+    </nav>
+    {% endblock %}
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="sidebar-sticky pt-3">
+          {% block sidebarMenu %}
+            <ul class="nav flex-column">
+
+              <li class="nav-item">
+                <a class="nav-link active">
+                  <span data-feather="home"></span>
+                  首页 <span class="sr-only">(current)</span>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('web.apply') }}">
+                  <span data-feather="file"></span>
+                  请假
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="shopping-cart"></span>
+                  销假
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('web.apply_list') }}">
+                  <span data-feather="file"></span>
+                  请假记录
+                </a>
+              </li>
+            </ul>
+
+            {% if current_user.is_approver() or current_user.is_admin() %}
+                <ul class="nav flex-column mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('web.approve_list') }}">
+                      <span data-feather="home"></span>
+                      审批 <span class="sr-only">(current)</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text"></span>
+                      未审批
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text"></span>
+                      已审批
+                    </a>
+                </ul>
+            {% endif %}
+
+            {% if current_user.is_admin() %}
+              <ul class="nav flex-column mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link active">
+                      <span data-feather="home"></span>
+                      报表 <span class="sr-only">(current)</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text"></span>
+                      查询
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text"></span>
+                      查询二
+                    </a>
+              </ul>
+              <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link active">
+                      <span data-feather="home"></span>
+            {#            <a href="#" class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">系统维护</a>#}
+                      系统维护 <span class="sr-only">(current)</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('web.users') }}">
+                      <span data-feather="file"></span>
+            {#            <a href="#" class="btn btn-primary btn-lg" role="button" aria-disabled="true">用户管理</a>#}
+                      用户管理
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('web.section') }}">
+                      <span data-feather="file"></span>
+                      部门维护
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('web.occupation') }}">
+                      <span data-feather="file"></span>
+                      人员类别维护
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('web.level') }}">
+                      <span data-feather="file"></span>
+                      审批级别维护
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('web.rule') }}">
+                      <span data-feather="file"></span>
+                      审批规则维护
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('web.vehicle') }}">
+                      <span data-feather="file"></span>
+                      交通工具维护
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('web.vehicle') }}">
+                      <span data-feather="shopping-cart"></span>
+                      报表查询
+                    </a>
+                  </li>
+              </ul>
+            {% endif %}
+          {% endblock %}
+          </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        {% block main %}
+            {% with messages = get_flashed_messages() %}
+                {% for message in messages %}
+                    {% if message %}
+                        <div class="alert alert-warning" role="alert">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+            {% if form and form.errors %}
+                {% for key, error in form.errors.items() %}
+                    <div class="alert alert-warning" role="alert">{{ "{}-{}".format(key, error) }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+        </main>
+
+      </div>
+    </div>
+
+    {% block script %}
+        <script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"></script>
+        <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"><\/script>')</script><script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/feather.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/Chart.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+        <!-- 两个事件选择器脚本 -->
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+            <script>
+            $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: moment.locale('zh-cn')
+            });
+            $('#datetimepicker2').datetimepicker({
+                format: 'YYYY-MM-DD hh:mm',
+                format: 'YYYY-MM-DD',
+                locale: moment.locale('zh-cn')
+            });
+        });
+        </script>
+
+        <!-- 时间选择器脚本 -->
+{#        <script src="{{ url_for('static', filename='js/datepicker/jquery.min.js') }}"></script>#}
+{#        <script src="{{ url_for('static', filename='js/datepicker/popper.min.js') }}"></script>#}
+{#        <script src="{{ url_for('static', filename='js/datepicker/bootstrap.min.js') }}"></script>#}
+{#        <script src="{{ url_for('static', filename='js/datepicker/gijgo.min.js') }}"></script>#}
+{#        <script src="{{ url_for('static', filename='js/datepicker/messages.zh-cn.min.js') }}"></script>#}
+{#        <script>#}
+{#            $("#datepicker").datepicker({#}
+{#                locale: 'zh-cn',#}
+{#                format: 'yyyy-mm-dd',#}
+{#                weekStartDay: 1,#}
+{#                minDate: function () {#}
+{#                    return new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());#}
+{#                },#}
+{#                maxDate: function () {#}
+{#                    var date = new Date();#}
+{#                    date.setDate(date.getDate() + 5);#}
+{#                    return new Date(date.getFullYear(), date.getMonth(), date.getDate());#}
+{#                }#}
+{#            });#}
+{#        </script>#}
+    {% endblock %}
+
+  </body>
+</html>

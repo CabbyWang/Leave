@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Material Dash</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='3rd/base/vendors/mdi/css/materialdesignicons.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='3rd/base/vendors/css/vendor.bundle.base.css') }}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='3rd/base/css/demo/style.css') }}">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='3rd/base/images/favicon.png') }}" />
+  <!-- datepicker -->
+{#  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />#}
+{#  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='3rd/base/fonts/material_icons.css') }}" />#}
+  <script src="{{ url_for('static', filename='3rd/datepicker/images/fontawesome.js') }}https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+{#  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">#}
+  <link href="{{ url_for('static', filename='3rd/base/css/google_icon.css') }}" rel="stylesheet">
+
+  <link id="pagestyle" href="{{ url_for('static', filename='3rd/datepicker/css/material-kit.min.css') }}" rel="stylesheet" />
+
+</head>
+<body>
+<script src="{{ url_for('static', filename='3rd/base/js/preloader.js') }}"></script>
+  <div class="body-wrapper">
+    <!-- partial:../../partials/_sidebar.html -->
+    <aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open">
+      <div class="mdc-drawer__header">
+        <a href="{{ url_for('web.index') }}" class="brand-logo">
+          <img src="{{ url_for('static', filename='3rd/base/images/logo.svg') }}" alt="logo">
+{#            第四医学中心#}
+        </a>
+      </div>
+      <div class="mdc-drawer__content">
+{#        <div class="user-info">#}
+{#          <p class="name">第四医学中心</p>#}
+{#          <p class="email">cabbyw</p>#}
+{#        </div>#}
+        <div class="mdc-list-group">
+          <nav class="mdc-list mdc-drawer-menu">
+            <div class="mdc-list-item mdc-drawer-item">
+              <a class="mdc-drawer-link" href="{{ url_for('web.index') }}">
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">home</i>
+{#                Dashboard#}
+                  首页
+              </a>
+            </div>
+            <div class="mdc-list-item mdc-drawer-item">
+              <a class="mdc-drawer-link" href="../../pages/forms/basic-forms.html">
+{#                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">track_changes</i>#}
+                Forms
+              </a>
+            </div>
+            <div class="mdc-list-item mdc-drawer-item">
+              <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu">
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
+{#                UI Features#}
+                  请销假
+                <i class="mdc-drawer-arrow material-icons">chevron_right</i>
+              </a>
+              <div class="mdc-expansion-panel" id="ui-sub-menu">
+                <nav class="mdc-list mdc-drawer-submenu">
+                  <div class="mdc-list-item mdc-drawer-item">
+                    <a class="mdc-drawer-link" href="{{ url_for('web.apply') }}">
+                      请假
+                    </a>
+                  </div>
+                  <div class="mdc-list-item mdc-drawer-item">
+                    <a class="mdc-drawer-link" href="{{ url_for('web.report_back') }}">
+                      销假
+                    </a>
+                  </div>
+                  <div class="mdc-list-item mdc-drawer-item">
+                    <a class="mdc-drawer-link" href="{{ url_for('web.apply_list') }}">
+                      请假记录
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </div>
+
+            {% if current_user.is_approver() or current_user.is_admin() %}
+              <div class="mdc-list-item mdc-drawer-item">
+                <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="sample-page-submenu">
+                  <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pages</i>
+                  审批
+                  <i class="mdc-drawer-arrow material-icons">chevron_right</i>
+                </a>
+                <div class="mdc-expansion-panel" id="sample-page-submenu">
+                  <nav class="mdc-list mdc-drawer-submenu">
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.approving_list') }}">
+                        未审批
+                      </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.approved_list') }}">
+                        已审批
+                      </a>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if current_user.is_admin() %}
+              <div class="mdc-list-item mdc-drawer-item">
+                <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="manufacture-submenu">
+                  <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">pages</i>
+                    系统管理
+                  <i class="mdc-drawer-arrow material-icons">chevron_right</i>
+                </a>
+                <div class="mdc-expansion-panel" id="manufacture-submenu">
+                  <nav class="mdc-list mdc-drawer-submenu">
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="../../pages/samples/blank-page.html">
+                        用户管理
+                      </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="../../pages/samples/403.html">
+                        部门维护
+                      </a>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+            {% endif %}
+            <div class="mdc-list-item mdc-drawer-item">
+              <a class="mdc-drawer-link" href="https://www.bootstrapdash.com/demo/material-admin-free/jquery/documentation/documentation.html" target="_blank">
+                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">description</i>
+                Documentation
+              </a>
+            </div>
+          </nav>
+        </div>
+        <div class="profile-actions">
+          <a href="javascript:;">Settings</a>
+          <span class="divider"></span>
+          <a href="{{ url_for('web.logout') }}">Logout</a>
+        </div>
+{#        <div class="mdc-card premium-card">#}
+{#          <div class="d-flex align-items-center">#}
+{#            <div class="mdc-card icon-card box-shadow-0">#}
+{#              <i class="mdi mdi-shield-outline"></i>#}
+{#            </div>#}
+{#            <div>#}
+{#              <p class="mt-0 mb-1 ml-2 font-weight-bold tx-12">Material Dash</p>#}
+{#              <p class="mt-0 mb-0 ml-2 tx-10">Pro available</p>#}
+{#            </div>#}
+{#          </div>#}
+{#          <p class="tx-8 mt-3 mb-1">More elements. More Pages.</p>#}
+{#          <p class="tx-8 mb-3">Starting from $25.</p>#}
+{#          <a href="https://www.bootstrapdash.com/product/material-design-admin-template/" target="_blank">#}
+{#						<span class="mdc-button mdc-button--raised mdc-button--white">Upgrade to Pro</span>#}
+{#					</a>#}
+{#        </div>#}
+      </div>
+    </aside>
+    <!-- partial -->
+    <div class="main-wrapper mdc-drawer-app-content">
+      <!-- partial:../../partials/_navbar.html -->
+      <header class="mdc-top-app-bar">
+        <div class="mdc-top-app-bar__row">
+          <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+            <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler">menu</button>
+            <span class="mdc-top-app-bar__title">早上下午晚上好 !</span>
+          </div>
+          <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end mdc-top-app-bar__section-right">
+            <div class="menu-button-container menu-profile d-none d-md-block">
+              <button class="mdc-button mdc-menu-button">
+                <span class="d-flex align-items-center">
+                  <span class="figure">
+                    <img src="{{ url_for('static', filename='3rd/base/images/faces/face1.jpg') }}" alt="user" class="user">
+                  </span>
+                  <span class="user-name">你好:{{ current_user.name }}</span>
+                </span>
+              </button>
+              <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+                <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon-only">
+                      <i class="mdi mdi-account-edit-outline text-primary"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">Edit profile</h6>
+                    </div>
+                  </li>
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon-only">
+                      <i class="mdi mdi-settings-outline text-primary"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">Logout</h6>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="divider d-none d-md-block"></div>
+            <div class="menu-button-container d-none d-md-block">
+              <button class="mdc-button mdc-menu-button">
+                <i class="mdi mdi-settings"></i>
+              </button>
+              <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+                <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon-only">
+                      <i class="mdi mdi-alert-circle-outline text-primary"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">Settings</h6>
+                    </div>
+                  </li>
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon-only">
+                      <i class="mdi mdi-progress-download text-primary"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">Update</h6>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="menu-button-container">
+              <button class="mdc-button mdc-menu-button">
+                <i class="mdi mdi-bell"></i>
+              </button>
+              <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+                <h6 class="title"> <i class="mdi mdi-bell-outline mr-2 tx-16"></i> Notifications</h6>
+                <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon">
+                      <i class="mdi mdi-email-outline"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">You received a new message</h6>
+                      <small class="text-muted"> 6 min ago </small>
+                    </div>
+                  </li>
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon">
+                      <i class="mdi mdi-account-outline"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">New user registered</h6>
+                      <small class="text-muted"> 15 min ago </small>
+                    </div>
+                  </li>
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon">
+                      <i class="mdi mdi-alert-circle-outline"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">System Alert</h6>
+                      <small class="text-muted"> 2 days ago </small>
+                    </div>
+                  </li>
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon">
+                      <i class="mdi mdi-update"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">You have a new update</h6>
+                      <small class="text-muted"> 3 days ago </small>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="menu-button-container">
+              {% with messages = current_user.approving_messages %}
+                  <!-- 消息提示 收到消息条数及详情 -->
+                <button class="mdc-button mdc-menu-button">
+                  <i class="mdi mdi-email"></i>
+                  <span class="count-indicator">
+                    <span class="count">{{ messages | length }}</span>
+                  </span>
+                </button>
+                <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+                  <h6 class="title"><i class="mdi mdi-email-outline mr-2 tx-16"></i> 待审列表</h6>
+                  <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+                    {% for message in messages %}
+                      <li class="mdc-list-item" role="menuitem">
+                        <a href="{{ url_for('web.approving_list') }}">
+                          <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                            <h6 class="item-subject font-weight-normal">
+                              {{ message.section }} {{ message.applicant_name }} 的请假申请
+                            </h6>
+                            <small class="text-muted"> {{ message.create_time }} </small>
+                          </div>
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endwith %}
+            </div>
+            <div class="menu-button-container d-none d-md-block">
+              <!-- 最后一个按钮 注销/登出 -->
+              <button class="mdc-button mdc-menu-button">
+                <i class="mdi mdi-arrow-down-bold-box"></i>
+              </button>
+              <div class="mdc-menu mdc-menu-surface" tabindex="-1">
+                <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical">
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon-only">
+                      <i class="mdi mdi-lock-outline text-primary"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <h6 class="item-subject font-weight-normal">Lock screen</h6>
+                    </div>
+                  </li>
+                  <li class="mdc-list-item" role="menuitem">
+                    <div class="item-thumbnail item-thumbnail-icon-only">
+                      <i class="mdi mdi-logout-variant text-primary"></i>
+                    </div>
+                    <div class="item-content d-flex align-items-start flex-column justify-content-center">
+                      <a href="{{ url_for('web.logout') }}"><h6 class="item-subject font-weight-normal">Logout</h6></a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- partial -->
+      <div class="page-wrapper mdc-toolbar-fixed-adjust">
+        <main class="content-wrapper">
+{#          <main class="content">#}
+          <div>
+            {% with messages = get_flashed_messages() %}
+              {% for message in messages %}
+                  {% if message %}
+                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop alert alert-warning" role="alert">{{ message }}</div>
+                  {% endif %}
+              {% endfor %}
+            {% endwith %}
+            {% if form and form.errors %}
+                {% for key, error in form.errors.items() %}
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop alert alert-warning" role="alert">{{ "{}-{}".format(key, error) }}</div>
+                {% endfor %}
+            {% endif %}
+          </div>
+          {% block frame %}
+{#                  <div class="col-md-6 mx-auto">#}
+{#                    <div class="row">#}
+{#                      <div class="col-lg-6 mx-auto col-md-8 col-sm-5">#}
+{#                          <label>离开时间</label>#}
+{#                        <div class="input-group input-group-static">#}
+{#                          <span class="input-group-text"><i class="fas fa-calendar"></i></span>#}
+{#                          <input class="form-control datepicker" placeholder="Please select date" type="text" >#}
+{#                        </div>#}
+{#                      </div>#}
+{#                    </div>#}
+{#                  </div>#}
+
+          {% endblock %}
+        </main>
+        <!-- partial:../../partials/_footer.html -->
+        <footer>
+          <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+                <span class="text-center text-sm-left d-block d-sm-inline-block tx-14">Copyright ©2023</span>
+              </div>
+              <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop d-flex justify-content-end">
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center tx-14">解放军总医院第四医学中心信息科</span>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+    </div>
+  </div>
+  <!-- plugins:js -->
+  <script src="{{ url_for('static', filename='3rd/base/vendors/js/vendor.bundle.base.js') }}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="{{ url_for('static', filename='3rd/base/js/material.js') }}"></script>
+  <script src="{{ url_for('static', filename='3rd/base/js/misc.js') }}"></script>
+
+  <!-- datepicker -->
+  <script src="{{ url_for('static', filename='3rd/datepicker/js/core/popper.min.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='3rd/datepicker/js/core/bootstrap.min.js') }}" type="text/javascript"></script>
+  <script src="{{ url_for('static', filename='3rd/datepicker/js/plugins/perfect-scrollbar.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='3rd/datepicker/js/plugins/flatpickr.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='3rd/datepicker/js/material-kit.min.js') }}" type="text/javascript"></script>
+  <script>
+    if (document.querySelector(".datepicker")) {
+      flatpickr(".datepicker", {
+          {#locale: 'zh-cn'#}
+      });
+    }
+  </script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <!-- End custom js for this page-->
+</body>
+</html>

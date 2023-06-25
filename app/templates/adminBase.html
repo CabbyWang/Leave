@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block sidebarMenu %}
+    {{ super() }}
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link active">
+          <span data-feather="home"></span>
+{#            <a href="#" class="btn btn-secondary btn-lg disabled" role="button" aria-disabled="true">系统维护</a>#}
+          系统维护 <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('web.users') }}">
+          <span data-feather="file"></span>
+{#            <a href="#" class="btn btn-primary btn-lg" role="button" aria-disabled="true">用户管理</a>#}
+          用户管理
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('web.section') }}">
+          <span data-feather="file"></span>
+          部门维护
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('web.occupation') }}">
+          <span data-feather="file"></span>
+          人员类别维护
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('web.level') }}">
+          <span data-feather="file"></span>
+          审批级别维护
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('web.rule') }}">
+          <span data-feather="file"></span>
+          审批规则维护
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('web.vehicle') }}">
+          <span data-feather="file"></span>
+          交通工具维护
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('web.vehicle') }}">
+          <span data-feather="shopping-cart"></span>
+          报表查询
+        </a>
+      </li>
+    </ul>
+{% endblock %}
+
+{% block main %}
+
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script>
+    $(function () {
+    $('#datetimepicker1').datetimepicker({
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn')
+    });
+    $('#datetimepicker2').datetimepicker({
+        {#format: 'YYYY-MM-DD hh:mm',#}
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('zh-cn')
+    });
+});
+    </script>
+
+{% endblock %}

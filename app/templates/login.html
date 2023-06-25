@@ -47,20 +47,26 @@
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="text" id="username" name="username"
-             value="{{ form.data['username'] | default('',true) }}"
+{#             value="{{ form.data['username'] | default('',true) }}"#}
              class="form-control" placeholder="Username" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="password" name="password"
-             value="{{ form.data['password'] | default('',true) }}"
+{#             value="{{ form.data['password'] | default('',true) }}"#}
              class="form-control" placeholder="Password" required>
-      {% with messages = get_flashed_messages() %}
-        {% for message in messages %}
-          {% if message %}
-            <div class="alert alert-warning" role="alert">{{ message }}</div>
-          {% endif %}
-        {% endfor %}
-      {% endwith %}
+
       <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-warning" role="alert">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
+        {% if form and form.errors %}
+            {% for key, error in form.errors.items() %}
+                <div class="alert alert-warning" role="alert">{{ "{}-{}".format(key, error)}}</div>
+            {% endfor %}
+        {% endif %}
       <p class="mt-5 mb-3 text-muted">&copy; 第四医学中心信息科</p>
     </form>
   {% endblock %}

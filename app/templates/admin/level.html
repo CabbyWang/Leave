@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-md-8 order-md-1">
+          <div class="container">
+          <h4 class="mb-3">审批级别维护</h4>
+          <form class="needs-validation" method="post" novalidate>
+{#          {{ delete_form.csrf_token }}#}
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">审批级别</th>
+                  <th scope="col">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for id, level in levels.items() %}
+                    <tr>
+                      <th  scope="row"><input type="text" class="form-control col-md-1" name="id" value="{{ id }}" hidden></th>
+                      <td> {{ level }} </td>
+{#                      <td><button type="button" class="btn btn-dark" name="{{ id }}">删除</button></td>#}
+                      <td><a href="{{ url_for('web.level_del', level_id=id) }}">删除</a></td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+
+            <hr class="mb-4">
+          </form>
+
+          <!-- 新增审批级别 -->
+          <form class="card p-2" method="post">
+{#              {{ add_form.csrf_token }}#}
+            <div class="input-group">
+              <input type="text" class="form-control"
+                     name="name"
+                     placeholder="请输入级别后, 点击新增">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-success">新增</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}

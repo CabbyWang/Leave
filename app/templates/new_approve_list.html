@@ -1,0 +1,40 @@
+{% extends 'new_base.html' %}
+
+{% block frame %}
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+      <div class="mdc-card p-0">
+        <h6 class="card-title card-padding pb-0">您的请假记录</h6>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-left">姓名</th>
+                <th class="text-center">部门</th>
+                <th class="text-center">请假时间</th>
+                <th class="text-center">目的地</th>
+                <th class="text-center">离开日期</th>
+                <th class="text-center">返回日期</th>
+                <th class="text-center">审批结果</th>
+                <th class="text-center">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for apply in applies %}
+                <tr>
+                  <td class="text-left">Cupcake</td>
+                  <td>2.49</td>
+                  <td>4.0</td>
+                  <td>45</td>
+                  <td>3.05</td>
+                  <td>83</td>
+                  <td>20%</td>
+                  <td><a href="#" class="link-success">审批详情</a></td>
+                </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+{% endblock %}

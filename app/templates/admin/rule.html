@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-md-8 order-md-1">
+          <div class="container">
+          <h4 class="mb-3">审批规则维护</h4>
+          <form class="needs-validation" method="post" novalidate>
+{#          {{ delete_form.csrf_token }}#}
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">部门</th>
+                  <th scope="col">人员类别</th>
+                  <th scope="col">==></th>
+                  <th scope="col">审批级别</th>
+                  <th scope="col">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for rule in rules %}
+                    <tr>
+                      <th  scope="row"><input type="text" class="form-control col-md-1" name="id" value="{{ rule.id }}" hidden></th>
+                      <td> {{ rule.section }} </td>
+                      <td> {{ rule.occupation }} </td>
+                      <td>==></td>
+                      <td> {{ rule.level }} </td>
+                      <td><a href="{{ url_for('web.rule_del', rule_id=rule.id) }}">删除</a></td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+
+            <hr class="mb-4">
+
+          </form>
+
+          <!-- 新增审批规则 -->
+          <form class="card p-2" method="post">
+            <div class="row">
+              <div class="col-md-3 mb-3">
+                <label for="country">部门</label>
+                <select class="custom-select d-block w-100" id="section" name="section_id" required>
+                  <option value="">Choose...</option>
+                  {% for id, section in sections.items() %}
+                      <option value={{ id }}>{{ section }}</option>
+                  {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid section.
+                </div>
+              </div>
+              <div class="col-md-1 mb-3">
+                <label for="country">+</label>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="state">人员类别</label>
+                <select class="custom-select d-block w-100" id="occupation" name="occupation_id" required>
+                  <option value="">Choose...</option>
+                  {% for id, occupation in occupations.items() %}
+                      <option value={{ id }}>{{ occupation }}</option>
+                  {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid occupation.
+                </div>
+              </div>
+              <div class="col-md-1 mb-3 align-items-center">
+                <label for="country">==></label>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="state">审批级别</label>
+                <select class="custom-select d-block" id="level" name="level_id" required>
+                  <option value="">Choose...</option>
+                  {% for id, level in levels.items() %}
+                      <option value={{ id }}>{{ level }}</option>
+                  {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                  Please provide a valid state.
+                </div>
+              </div>
+              <div class="col-md-1 mb-3 align-items-center">
+                <button type="submit" class="btn btn-success">新增</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}

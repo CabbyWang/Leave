@@ -1,66 +1,82 @@
 {% extends "base.html" %}
-{% block main %}
-    <div class="row">
+{% block head %}
+    {{ super() }}
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+{% endblock %}
 
+{% block content %}
+    <div class="row">
         <div class="col-md-8 order-md-1">
+          <div class="container">
           <h4 class="mb-3">请假页面</h4>
           <form class="needs-validation" method="post" novalidate>
+
             <div class="mb-3">
-              <label for="username">登录用户名</label>
-              <div class="input-group">
-                <input type="text" class="form-control" id="username"
-                       name="username"
-                       value="{{ form.data['username'] | default('',true) }}"
-                       placeholder="" required>
-                <div class="invalid-feedback" style="width: 100%;">
-                  Your username is required.
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">请假原因</span>
+                  </div>
+                  <textarea class="form-control" aria-label="With textarea" name="cause"></textarea>
                 </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">目的地</span>
+                  </div>
+                  <input type="text" class="form-control" id="destination"
+                         name="destination"
+                         placeholder="">
+                  <div class="invalid-feedback">
+                    请输入目的地.
+                  </div>
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="password">密码</label>
-              <input type="password" class="form-control" id="password"
-                     name="password"
-{#                     value="{{ form.data['password'] | default('',true) }}"#}
-                     placeholder="">
-              <div class="invalid-feedback">
-                Please enter your Password.
+              <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">交通工具</span>
+                </div>
+                <select class="custom-select d-block w-100" id="vehicle" name="vehicle_id">
+                    <option value="">Choose...</option>
+                    {% for k, v in vehicles.items() %}
+                      <option value={{ k }}>{{ v }}</option>
+                    {% endfor %}
+                </select>
               </div>
             </div>
 
             <div class="mb-3">
-              <label for="name">姓名</label>
-              <input type="text" class="form-control" id="name"
-                     name="name"
-{#                     value="{{ form.data['name'] | default('',true) }}"#}
-                     placeholder="" required>
-              <div class="invalid-feedback">
-                Please enter your Name.
-              </div>
+                  <div class='col-sm-4'>
+                    <div class="form-group">
+                        <label>离开日期：</label>
+                        <!--指定 date标记-->
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control" name="leave_date">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                  </div>
+                  <div class='col-sm-4'>
+                    <div class="form-group">
+                        <label>返回日期：</label>
+                        <!--指定 date标记-->
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input type='text' class="form-control" name="back_date">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                  </div>
             </div>
 
-            <div class="mb-3">
-              <label for="phone_number">手机号</label>
-              <input type="text" class="form-control" id="phone_number"
-                     name="phone_number"
-{#                     value="{{ form.data['phone_number'] | default('',true) }}"#}
-                     placeholder="" required>
-              <div class="invalid-feedback">
-                Please enter your Name.
-              </div>
-            </div>
 
-            <div class="mb-3">
-              <label for="id_card_number">身份证号 <span class="text-muted">(Required)</span></label>
-              <input type="text" class="form-control" id="id_card_number"
-                     name="id_card_number"
-{#                     value="{{ form.data['id_card_number'] | default('',true) }}"#}
-                     placeholder="">
-              <div class="invalid-feedback">
-                Please enter a valid ID Card.
-              </div>
-            </div>
 
             <hr class="mb-4">
 
@@ -69,4 +85,5 @@
           </form>
         </div>
       </div>
+    </div>
 {% endblock %}

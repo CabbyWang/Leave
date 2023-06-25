@@ -8,4 +8,9 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'postgresql://postgres:{}@localhost/leave'.format(parse.quote(PASSWORD))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    WTF_CSRF_SECRET_KEY = 'IT 666 to 709 kill pic'
+    WTF_CSRF_CHECK_DEFAULT = False
+
+    ADMIN = 'admin'
     DEBUG = True

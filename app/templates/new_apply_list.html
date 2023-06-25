@@ -1,0 +1,50 @@
+{% extends 'new_base.html' %}
+
+{% block frame %}
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+      <div class="mdc-card p-0">
+        <h6 class="card-title card-padding pb-0">您的请假记录</h6>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-left">姓名</th>
+                <th class="text-center">部门</th>
+                <th class="text-center">请假时间</th>
+                <th class="text-center">目的地</th>
+                <th class="text-center">离开日期</th>
+                <th class="text-center">返回日期</th>
+                <th class="text-center">实际返回日期</th>
+                <th class="text-center">审批结果</th>
+                <th class="text-center">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for apply in applies %}
+                <form action="{{ url_for('web.cancel') }}" method="post">
+                  <tr>
+                    <td class="text-left">{{ apply.apply_name }}</td>
+                    <td class="text-center">{{ current_user.section.name }}</td>
+                    <td class="text-center">{{ apply.create_time }}</td>
+                    <td class="text-center">{{ apply.destination }}</td>
+                    <td class="text-center">{{ apply.leave_date }}</td>
+                    <td class="text-center">{{ apply.back_date }}</td>
+                    <td class="text-center">{{ apply.actual_back_date }}</td>
+                    <td class="text-center">{{ apply.approve_status }}</td>
+                    <td class="text-center">
+                      {% if apply.approve_status == '待审' %}
+                        <input class="form-control" hidden
+                               name="apply_id" value="{{ apply.id }}"></input>
+                        <button type="submit" class="link-success">撤销申请</button>
+                      {% endif %}
+                    </td>
+                  </tr>
+                </form>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      </div>
+{% endblock %}

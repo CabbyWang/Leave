@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-md-8 order-md-1">
+          <div class="container">
+          <h4 class="mb-3">人员类别维护</h4>
+          <form class="needs-validation" method="post" novalidate>
+{#          {{ delete_form.csrf_token }}#}
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">人员类别</th>
+                  <th scope="col">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for id, occupation in occupations.items() %}
+                    <tr>
+                      <th  scope="row"><input type="text" class="form-control col-md-1" name="id" value="{{ id }}" hidden></th>
+                      <td> {{ occupation }} </td>
+{#                      <td><button type="button" class="btn btn-dark" name="{{ id }}">删除</button></td>#}
+                      <td><a href="{{ url_for('web.occupation_del', occupation_id=id) }}">删除</a></td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+
+            <hr class="mb-4">
+
+{#            <button class="btn btn-primary btn-lg btn-block" id="btn-submit" type="submit">申请</button>#}
+          </form>
+
+          <!-- 新增交通工具 -->
+          <form class="card p-2" method="post">
+{#              {{ add_form.csrf_token }}#}
+            <div class="input-group">
+              <input type="text" class="form-control"
+                     name="name"
+                     placeholder="请输入人员类别后, 点击新增">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-success">新增</button>
+{#                  {{ add_form.add }}#}
+{#                  <a href="{{ url_for('web.occupation') }}">新增</a>#}
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}

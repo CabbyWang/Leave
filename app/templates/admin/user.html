@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-md-8 order-md-1">
+          <div class="container">
+          <h4 class="mb-3">用户管理</h4>
+
+          <form class="needs-validation" method="post" novalidate>
+            <!-- TODO 可以查看用户详细信息,如请假记录等? 可以修改用户信息,如部门/人员类别/审批级别等? -->
+            <div class="mb-3">
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">姓名</span>
+                  </div>
+                  <input type="text" class="form-control" id="name" name="name"
+                         value="{{ user.name }}" aria-describedby="basic-addon3">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">登录用户名</span>
+                  </div>
+                  <input type="text" class="form-control" id="username" name="username"
+                         value="{{ user.username }}" aria-describedby="basic-addon3">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">电话号码</span>
+                  </div>
+                  <input type="text" class="form-control" id="phone_number" name="phone_number"
+                         value="{{ user.phone_number }}" aria-describedby="basic-addon3">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">身份证号</span>
+                  </div>
+                  <input type="text" class="form-control" id="id_card_number"
+                         name="id_card_number" aria-describedby="basic-addon3" value="{{ user.id_card_number }}">
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3">部门</span>
+                      </div>
+                      <select class="form-control custom-select d-block w-100" id="section" name="section_id" aria-describedby="basic-addon3">
+                        <option value="{{ user.section_id }}">{{ user.section }}</option>
+                        {% for id, section in sections.items() %}
+                            <option value={{ id }}>{{ section }}</option>
+                        {% endfor %}
+                      </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">人员类别</span>
+                  </div>
+                  <select class="custom-select d-block w-100" id="occupation" name="occupation_id">
+                    <option value="{{ user.occupation_id }}">{{ user.occupation }}</option>
+                    {% for id, occupation in occupations.items() %}
+                        <option value={{ id }}>{{ occupation }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">审批级别</span>
+                  </div>
+                  <select class="custom-select d-block w-100" id="level" name="level_id">
+                    <option value="{{ user.level_id }}">{{ user.level }}</option>
+                    {% for id, level in leavls.items() %}
+                        <option value={{ id }}>{{ level }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" id="btn-submit" type="submit">修改用户信息</button>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock %}
