@@ -54,6 +54,7 @@ class ApplyService:
     @staticmethod
     def cancel_apply(cancel_apply_form):
         """
+        撤销休假
         1.Approve 状态-> 2 (撤销)
         2.ApproveDetail 状态-> 1 (审核中)
         3.Approving 删除
@@ -70,16 +71,16 @@ class ApplyService:
                 if approving:
                     db.session.delete(approving)
 
-    @staticmethod
-    def report_back(report_back_form):
-        """
-        1.Approve 状态-> 2 (撤销)
-        2.ApproveDetail 状态-> 1 (审核中)
-        3.Approving 删除
-        :return:
-        """
-        with db.auto_commit():
-            apply_id = report_back_form.apply_id.data
+    # @staticmethod
+    # def report_back(report_back_form):
+    #     """
+    #     1.Approve 状态-> 2 (撤销)
+    #     2.ApproveDetail 状态-> 1 (审核中)
+    #     3.Approving 删除
+    #     :return:
+    #     """
+    #     with db.auto_commit():
+    #         apply_id = report_back_form.apply_id.data
 
 
 # class LeaveService:
