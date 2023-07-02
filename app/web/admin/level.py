@@ -3,6 +3,7 @@ from flask import request, flash, url_for
 from flask_login import login_required
 
 from app.models import db
+from app.view_models.role import LevelInfo
 
 from app.web import web
 
@@ -29,7 +30,9 @@ def level_del(level_id):
         db.session.commit()
         # 删除成功
         return redirect(url_for('web.level'))
-    return render_template('admin/level.html', levels=Level.get_all_levels())
+    return render_template(
+        'admin/level.html', levels=[LevelInfo(lev) for lev in Level.get_all_levels()]
+    )
 
 
 @web.route('/level', methods=['GET', 'POST'])
@@ -43,5 +46,6 @@ def level():
         db.session.add(v)
         db.session.commit()
         return redirect(url_for('web.level'))
-    return render_template('admin/level.html', levels=Level.get_all_levels())
-
+    return render_template(
+        'admin/level.html', levels=[LevelInfo(lev) for lev in Level.get_all_levels()]
+    )

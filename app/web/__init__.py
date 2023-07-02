@@ -15,4 +15,7 @@ from app.web.admin import section
 from app.web.admin import occupation
 from app.web.admin import rule
 from app.web.admin import users
+from app.web.admin import area
+from app.web.admin import xuebu
+from app.web.admin import position
 # from app.web.approve import approve

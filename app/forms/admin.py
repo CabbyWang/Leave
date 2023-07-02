@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import Form, StringField, SubmitField, IntegerField
+from wtforms.validators import DataRequired
 
 
 class DeleteVehicleForm(FlaskForm):
@@ -11,27 +12,47 @@ class DeleteVehicleForm(FlaskForm):
 
 class AddVehicleForm(FlaskForm):
 
-    name = StringField('vehicle')
+    name = StringField('vehicle', validators=[DataRequired()])
     add = SubmitField('新增')
 
 
 class AddVehicleForm(Form):
 
-    name = StringField('vehicle')
+    name = StringField('vehicle', validators=[DataRequired()])
 
 
 class AddLevelForm(Form):
-    name = StringField('vehicle')
+    name = StringField('level', validators=[DataRequired()])
 
 
 class AddOccupationForm(Form):
 
-    name = StringField('occupation')
+    name = StringField('occupation', validators=[DataRequired()])
 
 
 class AddSectionForm(Form):
 
-    name = StringField('section')
+    name = StringField('section', validators=[DataRequired()])
+
+
+class AddXuebuForm(Form):
+
+    name = StringField('section', validators=[DataRequired()])
+
+
+class AddAreaForm(Form):
+
+    name = StringField('section', validators=[DataRequired()])
+
+
+class AddVehicleForm(Form):
+
+    name = StringField('vehicle', validators=[DataRequired()])
+
+
+class AddPositionForm(Form):
+
+    name = StringField('position', validators=[DataRequired()])
 
 
 class AddRuleForm(Form):

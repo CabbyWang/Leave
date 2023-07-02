@@ -74,9 +74,9 @@
                               <ul class="mdc-list">
                                 <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
                                 </li>
-                                {% for id, name in occupations.items() %}
-                                  <li class="mdc-list-item" data-value="{{ id }}">
-                                    {{ name }}
+                                {% for occupation in occupations %}
+                                  <li class="mdc-list-item" data-value="{{ occupation.occupation_id }}">
+                                    {{ occupation.occupation }}
                                   </li>
                                 {% endfor %}
                               </ul>
@@ -94,9 +94,9 @@
                               <ul class="mdc-list">
                                 <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
                                 </li>
-                                {% for id, name in sections.items() %}
-                                  <li class="mdc-list-item" data-value="{{ id }}">
-                                    {{ name }}
+                                {% for section in sections %}
+                                  <li class="mdc-list-item" data-value="{{ section.section_id }}">
+                                    {{ section.section }}
                                   </li>
                                 {% endfor %}
                               </ul>

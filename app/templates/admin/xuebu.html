@@ -3,23 +3,21 @@
 {% block frame %}
   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
     <div class="mdc-card p-0">
-      <h6 class="card-title card-padding pb-0">人员类别列表</h6>
+      <h6 class="card-title card-padding pb-0">学部列表</h6>
       <div class="table-responsive">
         <table class="table table-striped">
           <thead>
             <tr>
-              <th class="text-center">人员类别</th>
+              <th class="text-center">学部</th>
               <th class="text-center">操作</th>
             </tr>
           </thead>
           <tbody>
-            {% for occupation in occupations %}
-              <form action="{{ url_for('web.occupation') }}" method="post">
+            {% for xuebu in xuebus %}
+              <form action="{{ url_for('web.xuebu') }}" method="post">
                 <tr>
-                  <td class="text-center">{{ occupation.occupation }}</td>
-                  <td class="text-center">
-                    <a href="{{ url_for('web.occupation_del', occupation_id=occupation.occupation_id) }}">删除</a>
-                  </td>
+                  <td class="text-center">{{ xuebu.xuebu }}</td>
+                  <td class="text-center"><a href="{{ url_for('web.xuebu_del', xuebu_id=xuebu.xuebu_id) }}">删除</a></td>
                 </tr>
               </form>
             {% endfor %}
@@ -31,13 +29,13 @@
 
   <div class="mdc-layout-grid__cell--span-12">
     <div class="mdc-card">
-      <h6 class="card-title">新增片区</h6>
+      <h6 class="card-title">新增学部</h6>
       <div class="template-demo">
         <div class="mdc-layout-grid__inner">
           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
             <div class="mdc-card">
               <div class="template-demo">
-                <form action="{{ url_for('web.occupation') }}" method="post">
+                <form action="{{ url_for('web.xuebu') }}" method="post">
                   <div class="mdc-text-field">
                   <input class="mdc-text-field__input" id="text-field-hero-input" name="name">
                   <div class="mdc-line-ripple"></div>

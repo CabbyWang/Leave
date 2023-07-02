@@ -15,7 +15,7 @@ from app.services.leave import ApplyService
 __author__ = 'cabbyw'
 
 from ..forms.auth import RegistrationForm
-from ..view_models.apply import ApproveInfo, UserApplyInfo
+from ..view_models.apply import ApproveInfo, UserApplyInfo, VehicleInfo
 
 
 @web.route('/apply', methods=['GET', 'POST'])
@@ -26,7 +26,9 @@ def apply():
         # 存入数据库
         ApplyService.save_apply(form)
         return redirect(url_for('web.apply_list'))
-    return render_template('new_apply.html', form=form, vehicles=Vehicle.get_all_vehicles())
+    return render_template(
+        'new_apply.html', form=form, vehicles=[VehicleInfo(v) for v in Vehicle.get_all_vehicles()]
+    )
 
 
 @web.route('/cancel', methods=['POST'])
@@ -41,7 +43,9 @@ def cancel():
         # 存入数据库
         ApplyService.cancel_apply(form)
         return redirect(url_for('web.apply_list'))
-    return render_template('new_apply_list.html', form=form, vehicles=Vehicle.get_all_vehicles())
+    return render_template(
+        'new_apply_list.html', form=form, vehicles=[VehicleInfo(v) for v in Vehicle.get_all_vehicles()]
+    )
 
 
 @web.route('/apply_list')

@@ -3,6 +3,7 @@ from flask import request, url_for
 from flask_login import login_required
 
 from app.models import db
+from app.view_models.role import LevelInfo
 
 from app.web import web
 
@@ -46,7 +47,7 @@ def rule():
         'admin/rule.html',
         sections=Section.get_all_sections(),
         occupations=Occupation.get_all_occupations(),
-        levels=Level.get_all_levels(),
+        levels=[LevelInfo(level) for level in Level.get_all_levels()],
         rules=Rule.get_all_rules()
     )
 

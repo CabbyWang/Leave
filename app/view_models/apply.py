@@ -36,3 +36,10 @@ class ApproveInfo:
         self.approver = User.query.filter_by(id=approve.approve_user_id).first().name
         self.approved = approve.approved and '审批通过' or '未审批'
         self.active = 'active' if approve.approved else ''
+
+
+class VehicleInfo:
+
+    def __init__(self, vehicle):
+        self.vehicle_id = vehicle.id
+        self.vehicle = vehicle.name

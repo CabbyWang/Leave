@@ -47,7 +47,11 @@ class UserForm(Form):
     # section_id = IntegerField(default=0)
     # occupation_id = IntegerField(default=0)
     section_id = Field()  # TODO 完全没限制,是否有风险?
+    is_committee_member = Field()
+    xuebu_id = Field()
+    area_id = Field()
     occupation_id = Field()
+    position_id = Field()
     level_id = Field()
 
     # def validate_occupation_id(self, field):

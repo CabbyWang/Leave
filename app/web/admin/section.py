@@ -3,6 +3,7 @@ from flask import request, url_for
 from flask_login import login_required
 
 from app.models import db
+from app.view_models.role import SectionInfo
 
 from app.web import web
 
@@ -42,7 +43,7 @@ def section():
         db.session.add(v)
         db.session.commit()
         return redirect(url_for('web.section'))
-    return render_template('admin/section.html', sections=Section.get_all_sections())
+    return render_template('admin/section.html', sections=[SectionInfo(s) for s in Section.get_all_sections()])
 
 
 

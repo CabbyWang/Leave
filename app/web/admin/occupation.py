@@ -3,6 +3,7 @@ from flask import request, url_for
 from flask_login import login_required
 
 from app.models import db
+from app.view_models.role import OccupationInfo
 
 from app.web import web
 
@@ -28,7 +29,10 @@ def occupation_del(occupation_id):
         db.session.commit()
         # 删除成功
         return redirect(url_for('web.occupation'))
-    return render_template('admin/occupation.html', occupations=Occupation.get_all_occupations())
+    return render_template(
+        'admin/occupation.html',
+        occupations=[OccupationInfo(o) for o in Occupation.get_all_occupations()]
+    )
 
 
 @web.route('/occupation', methods=['GET', 'POST'])
@@ -42,7 +46,10 @@ def occupation():
         db.session.add(v)
         db.session.commit()
         return redirect(url_for('web.occupation'))
-    return render_template('admin/occupation.html', occupations=Occupation.get_all_occupations())
+    return render_template(
+        'admin/occupation.html',
+        occupations=[OccupationInfo(o) for o in Occupation.get_all_occupations()]
+    )
 
 
 

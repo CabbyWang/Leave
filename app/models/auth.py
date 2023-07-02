@@ -9,9 +9,6 @@ from app.models.base import Base, db
 from sqlalchemy import Column, String, Integer, ForeignKey, func, SmallInteger
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app.models.role import Position
-from app.view_models.users import UserInfo
-
 
 class User(Base, UserMixin):
     __tablename__ = 'users'
@@ -22,9 +19,12 @@ class User(Base, UserMixin):
     _password = Column('password', String(110), nullable=False)
     phone_number = Column(String(18))
     id_card_number = Column(String(18))
-    status = Column(SmallInteger, default=1)  # 默认为0，人力资源审批后激活，status=1
+    status = Column(SmallInteger, default=1)
     # section = relationship('Section', back_populates='users')
+    is_committee_member = Column(Integer, default=0, comment='是否是中心其他常委')
     section_id = Column(Integer, ForeignKey('section.id'), nullable=True, comment='科室或部门')
+    xuebu_id = Column(Integer, ForeignKey('xuebu.id'), nullable=True, comment='学部')
+    area_id = Column(Integer, ForeignKey('area.id'), nullable=True, comment='片区')
     occupation_id = Column(Integer, ForeignKey('occupation.id'), nullable=True, comment='人员类别')
     position_id = Column(Integer, ForeignKey('position.id'), comment='岗位类别')
     # level = relationship('Level')
@@ -38,12 +38,24 @@ class User(Base, UserMixin):
     def password(self):
         return self._password
 
+    @property
+    def is_active(self):
+        # TODO 如果没有被分配岗位，则为False(需求：人力资源激活账号后才能使用)
+        return True if self.position_id else False
+
     @password.setter
     def password(self, raw):
         self._password = generate_password_hash(raw)
 
     def check_password(self, raw):
         return check_password_hash(self._password, raw)
+
+    @staticmethod
+    def reset_password(new_password):
+        # TODO 重置密码
+        # password = new_password
+        # db.session.commit()
+        pass
 
     def is_admin(self):
         """
@@ -59,7 +71,7 @@ class User(Base, UserMixin):
 
     @classmethod
     def get_all_users(cls):
-        return [UserInfo(i) for i in cls.query.filter_by().order_by(cls.id).all()]
+        return cls.query.filter_by().order_by(cls.id).all()
 
     @property
     def approving_messages(self):
@@ -88,33 +100,20 @@ class User(Base, UserMixin):
         """
         获取当前用户需要哪些人授权
         :return:
+        [{'section': Section, 'level': Level, 'area': Area, 'xuebu': XueBu}, {'section': Section, 'level': Level, 'area': Area}]
         """
-        # TODO 从规则表中取还是写死？from app.models.rule import Rule
-        if self.position.name == '护士长':
-            # section = self.section  # 科室
-            # select * from users where position_id = '岗位id' and section_id = '科室id'
-            level_ids = db.session.query(User.level_id).filter(User.section == self.section, User.level_id.in_((2, 3))).all()
-            users = [User.query.filter_by(level_id=level_id_tuple[0]).first() for level_id_tuple in level_ids]
-            # return UserInfo(user)
-            return users
-        return []
-        # [rule.level_id for rule in rules]
-        # 2. 通过规则找到相应的审批人id
-        # return [self.query.filter_by(level_id=rule.level_id).filter(User.id != self.id).first().id for rule in rules]
+        users = []
+        from app.lib.rules import Rule
+        rule_list = Rule(self)()
+        for rule in rule_list:
+            users.extend(User.query.filter_by(**rule).all())
+            print(User.query.filter_by(**rule).all())
+        return users
 
-    # def get_all_approver(self):
-    #     """
-    #     获取当前用户需要哪些人授权
-    #     :return:
-    #     """
-    #     from app.models.rule import Rule
-    #     # 1. 获取所有规则 # TODO 规则直接写死？
-    #     rules = Rule.query.filter_by(occupation_id=self.occupation_id, section_id=self.section_id,
-    #                                  status=1).all()
-    #     # [rule.level_id for rule in rules]
-    #     # 2. 通过规则找到相应的审批人id
-    #     # TODO 只获取一个人?
-    #     return [self.query.filter_by(level_id=rule.level_id).filter(User.id != self.id).first().id for rule in rules]
+
+
+
+
 
 
 

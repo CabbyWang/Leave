@@ -15,13 +15,11 @@ class Vehicle(Base):
 
     id = Column(Integer, autoincrement=True, primary_key=True, comment='id')
     name = Column(String, unique=True, comment='交通工具名(火车/高铁/飞机/自驾...其他)')
-    # applies = relationship('Apply', backref='vehicle', lazy='dynamic')
 
     # 获取所有的交通方式
     @classmethod
     def get_all_vehicles(cls):
-        # {1: '火车', 2: '其他'}
-        return {a.id: a.name for a in cls.query.filter_by().order_by(cls.id).all()}
+        return cls.query.filter_by().order_by(cls.id).all()
 
 
 class Apply(Base):
@@ -61,15 +59,6 @@ class Apply(Base):
                 # 超过12点前销假
                 outdays = (now.date() - self.leave_date).days + 1
             self.outdays = outdays
-
-
-# class Leave(Base):
-#     """
-#     请假表(暂时不需要)
-#     """
-#     __tablename__ = 'leave'
-#
-#     id = Column(Integer, primary_key=True)
 
 
 class Approve(Base):

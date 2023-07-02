@@ -1,95 +1,231 @@
-{% extends "base.html" %}
+{% extends "new_base.html" %}
 
-{% block content %}
-    <div class="row">
-
-        <div class="col-md-8 order-md-1">
-          <div class="container">
-          <h4 class="mb-3">用户管理</h4>
-
-          <form class="needs-validation" method="post" novalidate>
-            <!-- TODO 可以查看用户详细信息,如请假记录等? 可以修改用户信息,如部门/人员类别/审批级别等? -->
-            <div class="mb-3">
-              <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">姓名</span>
-                  </div>
-                  <input type="text" class="form-control" id="name" name="name"
-                         value="{{ user.name }}" aria-describedby="basic-addon3">
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">登录用户名</span>
-                  </div>
-                  <input type="text" class="form-control" id="username" name="username"
-                         value="{{ user.username }}" aria-describedby="basic-addon3">
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">电话号码</span>
-                  </div>
-                  <input type="text" class="form-control" id="phone_number" name="phone_number"
-                         value="{{ user.phone_number }}" aria-describedby="basic-addon3">
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">身份证号</span>
-                  </div>
-                  <input type="text" class="form-control" id="id_card_number"
-                         name="id_card_number" aria-describedby="basic-addon3" value="{{ user.id_card_number }}">
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">部门</span>
+{% block frame %}
+  <div class="mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+      <h6 class="card-title">用户信息</h6>
+      <div class="template-demo">
+        <div class="mdc-layout-grid__inner">
+          <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8-desktop">
+            <div class="mdc-card">
+              <div class="template-demo">
+                <form action="{{ url_for('web.user',user_id=user_id) }}" method="post">
+                  <div class="mdc-text-field mdc-text-field--outlined ">
+                    <input class="mdc-text-field__input" id="text-field-hero-input" name="name" value="{{ user.name }}">
+                    <div class="mdc-notched-outline">
+                      <div class="mdc-notched-outline__leading"></div>
+                      <div class="mdc-notched-outline__notch">
+                        <label for="text-field-hero-input" class="mdc-floating-label">姓名</label>
                       </div>
-                      <select class="form-control custom-select d-block w-100" id="section" name="section_id" aria-describedby="basic-addon3">
-                        <option value="{{ user.section_id }}">{{ user.section }}</option>
-                        {% for id, section in sections.items() %}
-                            <option value={{ id }}>{{ section }}</option>
-                        {% endfor %}
-                      </select>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">人员类别</span>
+                      <div class="mdc-notched-outline__trailing"></div>
+                    </div>
                   </div>
-                  <select class="custom-select d-block w-100" id="occupation" name="occupation_id">
-                    <option value="{{ user.occupation_id }}">{{ user.occupation }}</option>
-                    {% for id, occupation in occupations.items() %}
-                        <option value={{ id }}>{{ occupation }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-            </div>
 
-            <div class="mb-3">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">审批级别</span>
+                  <div class="mdc-text-field mdc-text-field--outlined ">
+                    <input class="mdc-text-field__input" id="text-field-hero-input" name="username" value="{{ user.username }}">
+                    <div class="mdc-notched-outline">
+                      <div class="mdc-notched-outline__leading"></div>
+                      <div class="mdc-notched-outline__notch">
+                        <label for="text-field-hero-input" class="mdc-floating-label">登录用户名</label>
+                      </div>
+                      <div class="mdc-notched-outline__trailing"></div>
+                    </div>
                   </div>
-                  <select class="custom-select d-block w-100" id="level" name="level_id">
-                    <option value="{{ user.level_id }}">{{ user.level }}</option>
-                    {% for id, level in leavls.items() %}
-                        <option value={{ id }}>{{ level }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
+                  <div class="mdc-text-field mdc-text-field--outlined ">
+                    <input class="mdc-text-field__input" id="text-field-hero-input" name="phone_number" value="{{ user.phone_number }}">
+                    <div class="mdc-notched-outline">
+                      <div class="mdc-notched-outline__leading"></div>
+                      <div class="mdc-notched-outline__notch">
+                        <label for="text-field-hero-input" class="mdc-floating-label">联系方式</label>
+                      </div>
+                      <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                  </div>
+                  <div class="mdc-text-field mdc-text-field--outlined ">
+                    <input class="mdc-text-field__input" id="text-field-hero-input" name="id_card_number" value="{{ user.id_card_number }}">
+                    <div class="mdc-notched-outline">
+                      <div class="mdc-notched-outline__leading"></div>
+                      <div class="mdc-notched-outline__notch">
+                        <label for="text-field-hero-input" class="mdc-floating-label">身份证号</label>
+                      </div>
+                      <div class="mdc-notched-outline__trailing"></div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="section_id" value="{{ user.section_id }}">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu-surface demo-width-class">
+                          <ul class="mdc-list">
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
+                            </li>
+                            {% for section in sections %}
+                              <li class="mdc-list-item" data-value="{{ section.section_id }}">
+                                {{ section.section }}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        <span class="mdc-floating-label">科室/部门</span>
+                        <div class="mdc-line-ripple"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="xuebu_id" value="{{ user.xuebu_id }}">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu-surface demo-width-class">
+                          <ul class="mdc-list">
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
+                            </li>
+                            {% for xuebu in xuebus %}
+                              <li class="mdc-list-item" data-value="{{ xuebu.xuebu_id }}">
+                                {{ xuebu.xuebu }}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        <span class="mdc-floating-label">学部</span>
+                        <div class="mdc-line-ripple"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="area_id" value="{{ user.area_id }}">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu-surface demo-width-class">
+                          <ul class="mdc-list">
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
+                            </li>
+                            {% for area in areas %}
+                              <li class="mdc-list-item" data-value="{{ area.area_id }}">
+                                {{ area.area }}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        <span class="mdc-floating-label">片区</span>
+                        <div class="mdc-line-ripple"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="occupation_id" value="{{ user.occupation_id }}">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu-surface demo-width-class">
+                          <ul class="mdc-list">
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
+                            </li>
+                            {% for occupation in occupations %}
+                              <li class="mdc-list-item" data-value="{{ occupation.occupation_id }}">
+                                {{ occupation.occupation }}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        <span class="mdc-floating-label">人员类别</span>
+                        <div class="mdc-line-ripple"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="position_id" value="{{ user.position_id }}">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu-surface demo-width-class">
+                          <ul class="mdc-list">
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
+                            </li>
+                            {% for position in positions %}
+                              <li class="mdc-list-item" data-value="{{ position.position_id }}">
+                                {{ position.position }}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        <span class="mdc-floating-label">岗位类别</span>
+                        <div class="mdc-line-ripple"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="level_id" value="{{ user.level_id }}">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu-surface demo-width-class">
+                          <ul class="mdc-list">
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
+                            </li>
+                            {% for level in levels %}
+                              <li class="mdc-list-item" data-value="{{ level.level_id }}">
+                                {{ level.level }}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        <span class="mdc-floating-label">审批级别(权限)</span>
+                        <div class="mdc-line-ripple"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="is_committee_member" value="{{ user.is_committee_member }}">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu-surface demo-width-class">
+                          <ul class="mdc-list">
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
+                            </li>
+                              <li class="mdc-list-item" data-value="0">
+                                 否
+                              </li>
+                              <li class="mdc-list-item" data-value="1">
+                                 是
+                              </li>
+                          </ul>
+                        </div>
+                        <span class="mdc-floating-label">是否属于中心其他常委</span>
+                        <div class="mdc-line-ripple"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mdc-layout-grid__inner">
+                    <button class="mdc-button mdc-button--raised filled-button--success">
+                          修改
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" id="btn-submit" type="submit">修改用户信息</button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+
 {% endblock %}

@@ -15,6 +15,7 @@ __author__ = 'cabbyw'
 
 from ..forms.auth import RegistrationForm
 from ..models.role import Occupation, Section
+from ..view_models.role import OccupationInfo, SectionInfo
 
 
 @web.route('/login', methods=['GET', 'POST'])
@@ -47,8 +48,8 @@ def register():
         return redirect(url_for('web.login'))
     return render_template(
         'new_register.html', form=form,
-        occupations=Occupation.get_all_occupations(),
-        sections=Section.get_all_sections()
+        occupations=[OccupationInfo(o) for o in Occupation.get_all_occupations()],
+        sections=[SectionInfo(s) for s in Section.get_all_sections()]
     )
 
 

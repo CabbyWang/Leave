@@ -45,9 +45,9 @@
                               <ul class="mdc-list">
                                 <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
                                 </li>
-                                {% for id, value in vehicles.items() %}
-                                  <li class="mdc-list-item" data-value="{{ id }}">
-                                    {{ value }}
+                                {% for vehicle in vehicles %}
+                                  <li class="mdc-list-item" data-value="{{ vehicle.vehicle_id }}">
+                                    {{ vehicle.vehicle }}
                                   </li>
                                 {% endfor %}
                               </ul>

@@ -3,13 +3,15 @@ from flask import request, url_for
 from flask_login import login_required
 
 from app.models import db
+from app.view_models.role import PositionInfo, LevelInfo, AreaInfo, XueBuInfo, SectionInfo, OccupationInfo
 from app.view_models.users import UserInfo
 from app.forms.auth import RegistrationForm, UserForm
 
 from app.web import web
 
 from app.models.auth import User
-from app.models.role import Section, Level, Occupation
+from app.models.role import Section, Level, Occupation, XueBu, Area, Position
+
 # from app.forms.admin import AddUserForm
 
 
@@ -20,7 +22,7 @@ __author__ = 'cabbyw'
 @login_required
 def user_del(user_id):
     """
-    删除审批规则
+    删除用户
     :param user_id:
     :return:
     """
@@ -31,14 +33,17 @@ def user_del(user_id):
         db.session.commit()
         # 删除成功
         return redirect(url_for('web.user'))
-    return render_template('admin/user.html', users=user.get_all_users())
+    return render_template(
+        'admin/user.html', users=[UserInfo(u) for u in User.get_all_users()]
+    )
 
 
 @web.route('/users', methods=['GET', 'POST'])
 @login_required
 def users():
-
-    return render_template('admin/users.html', users=User.get_all_users())
+    return render_template(
+        'admin/users.html', users=[UserInfo(u) for u in User.get_all_users()]
+    )
 
 
 @web.route('/user/<int:user_id>', methods=['GET', 'POST'])
@@ -50,15 +55,16 @@ def user(user_id):
     if request.method == 'POST' and form.validate():
         # 修改
         u.set_attrs(form.data)
-
-        # db.session.add(u)
         db.session.commit()
         return redirect(url_for('web.user', user_id=user_id))
     return render_template(
-        'admin/user.html', user=UserInfo(u),
-        sections=Section.get_all_sections(),
-        occupations=Occupation.get_all_occupations(),
-        leavls=Level.get_all_levels(),
+        'admin/user.html', user_id=u.id, user=UserInfo(u),
+        sections=[SectionInfo(s) for s in Section.get_all_sections()],
+        xuebus=[XueBuInfo(x) for x in XueBu.get_all_xuebus()],
+        areas=[AreaInfo(a) for a in Area.get_all_areas()],
+        occupations=[OccupationInfo(o) for o in Occupation.get_all_occupations()],
+        levels=[LevelInfo(level) for level in Level.get_all_levels()],
+        positions=[PositionInfo(p) for p in Position.get_all_positions()],
         form=form
     )
 

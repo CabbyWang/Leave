@@ -1,53 +1,65 @@
-{% extends "base.html" %}
+{% extends "new_base.html" %}
 
-{% block content %}
-    <div class="row">
+{% block frame %}
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0">
+      <h6 class="card-title card-padding pb-0">科室/部门</h6>
+      <div class="table-responsive">
+        <form action="{{ url_for('web.section') }}" method="post">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="text-center">科室/部门</th>
+                <th class="text-center">所属片区</th>
+                <th class="text-center">学部</th>
+                <th class="text-center">机关标志</th>
+                <th class="text-center">所属部门</th>
+                <th class="text-center">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for section in sections %}
 
-        <div class="col-md-8 order-md-1">
-          <div class="container">
-          <h4 class="mb-3">部门维护</h4>
-          <form class="needs-validation" method="post" novalidate>
-{#          {{ delete_form.csrf_token }}#}
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">部门</th>
-                  <th scope="col">操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for id, section in sections.items() %}
-                    <tr>
-                      <th  scope="row"><input type="text" class="form-control col-md-1" name="id" value="{{ id }}" hidden></th>
-                      <td> {{ section }} </td>
-{#                      <td><button type="button" class="btn btn-dark" name="{{ id }}">删除</button></td>#}
-                      <td><a href="{{ url_for('web.section_del', section_id=id) }}">删除</a></td>
-                    </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+                  <tr>
+                    <td class="text-center">{{ section.section }}</td>
+                    <td class="text-center">{{ section.area }}</td>
+                    <td class="text-center">{{ section.xuebu }}</td>
+                    <td class="text-center">{{ section.is_office }}</td>
+                    <td class="text-center">{{ section.parent_section }}</td>
+                    <td class="text-center"><a href="{{ url_for('web.section_del', section_id=section.section_id) }}">删除</a></td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
 
-
-            <hr class="mb-4">
-
-{#            <button class="btn btn-primary btn-lg btn-block" id="btn-submit" type="submit">申请</button>#}
-          </form>
-
-          <!-- 新增交通工具 -->
-          <form class="card p-2" method="post">
-{#              {{ add_form.csrf_token }}#}
-            <div class="input-group">
-              <input type="text" class="form-control"
-                     name="name"
-                     placeholder="请输入部门后, 点击新增">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-success">新增</button>
+  <div class="mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+      <h6 class="card-title">新增科室/部门</h6>
+      <div class="template-demo">
+        <div class="mdc-layout-grid__inner">
+          <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+            <div class="mdc-card">
+              <div class="template-demo">
+                <form action="{{ url_for('web.section') }}" method="post">
+                  <div class="mdc-text-field">
+                  <input class="mdc-text-field__input" id="text-field-hero-input" name="name">
+                  <div class="mdc-line-ripple"></div>
+                    <label for="text-field-hero-input" class="mdc-floating-label">Name</label>
+                  </div>
+                  <button class="mdc-button mdc-button--raised filled-button--success">
+                        新增
+                  </button>
+                </form>
               </div>
             </div>
-          </form>
-
+          </div>
         </div>
       </div>
     </div>
+  </div>
+
 {% endblock %}

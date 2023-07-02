@@ -52,15 +52,13 @@
               </a>
             </div>
             <div class="mdc-list-item mdc-drawer-item">
-              <a class="mdc-drawer-link" href="../../pages/forms/basic-forms.html">
-{#                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">track_changes</i>#}
+              <a class="mdc-drawer-link" href="#">
                 Forms
               </a>
             </div>
             <div class="mdc-list-item mdc-drawer-item">
               <a class="mdc-expansion-panel-link" href="#" data-toggle="expansionPanel" data-target="ui-sub-menu">
                 <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">dashboard</i>
-{#                UI Features#}
                   请销假
                 <i class="mdc-drawer-arrow material-icons">chevron_right</i>
               </a>
@@ -119,13 +117,43 @@
                 <div class="mdc-expansion-panel" id="manufacture-submenu">
                   <nav class="mdc-list mdc-drawer-submenu">
                     <div class="mdc-list-item mdc-drawer-item">
-                      <a class="mdc-drawer-link" href="../../pages/samples/blank-page.html">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.users') }}">
                         用户管理
                       </a>
                     </div>
                     <div class="mdc-list-item mdc-drawer-item">
-                      <a class="mdc-drawer-link" href="../../pages/samples/403.html">
-                        部门维护
+                      <a class="mdc-drawer-link" href="{{ url_for('web.section') }}">
+                        科室/部门维护
+                      </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.xuebu') }}">
+                        学部维护
+                      </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.area') }}">
+                        片区维护
+                      </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.occupation') }}">
+                        人员类别维护
+                      </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.position') }}">
+                        岗位类别维护
+                      </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.level') }}">
+                        审批级别维护
+                      </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                      <a class="mdc-drawer-link" href="{{ url_for('web.vehicle') }}">
+                        交通工具维护
                       </a>
                     </div>
                   </nav>
@@ -145,22 +173,6 @@
           <span class="divider"></span>
           <a href="{{ url_for('web.logout') }}">Logout</a>
         </div>
-{#        <div class="mdc-card premium-card">#}
-{#          <div class="d-flex align-items-center">#}
-{#            <div class="mdc-card icon-card box-shadow-0">#}
-{#              <i class="mdi mdi-shield-outline"></i>#}
-{#            </div>#}
-{#            <div>#}
-{#              <p class="mt-0 mb-1 ml-2 font-weight-bold tx-12">Material Dash</p>#}
-{#              <p class="mt-0 mb-0 ml-2 tx-10">Pro available</p>#}
-{#            </div>#}
-{#          </div>#}
-{#          <p class="tx-8 mt-3 mb-1">More elements. More Pages.</p>#}
-{#          <p class="tx-8 mb-3">Starting from $25.</p>#}
-{#          <a href="https://www.bootstrapdash.com/product/material-design-admin-template/" target="_blank">#}
-{#						<span class="mdc-button mdc-button--raised mdc-button--white">Upgrade to Pro</span>#}
-{#					</a>#}
-{#        </div>#}
       </div>
     </aside>
     <!-- partial -->
@@ -335,35 +347,29 @@
       <!-- partial -->
       <div class="page-wrapper mdc-toolbar-fixed-adjust">
         <main class="content-wrapper">
-{#          <main class="content">#}
-          <div>
-            {% with messages = get_flashed_messages() %}
-              {% for message in messages %}
-                  {% if message %}
-                      <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop alert alert-warning" role="alert">{{ message }}</div>
-                  {% endif %}
-              {% endfor %}
-            {% endwith %}
-            {% if form and form.errors %}
-                {% for key, error in form.errors.items() %}
-                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop alert alert-warning" role="alert">{{ "{}-{}".format(key, error) }}</div>
-                {% endfor %}
-            {% endif %}
-          </div>
-          {% block frame %}
-{#                  <div class="col-md-6 mx-auto">#}
-{#                    <div class="row">#}
-{#                      <div class="col-lg-6 mx-auto col-md-8 col-sm-5">#}
-{#                          <label>离开时间</label>#}
-{#                        <div class="input-group input-group-static">#}
-{#                          <span class="input-group-text"><i class="fas fa-calendar"></i></span>#}
-{#                          <input class="form-control datepicker" placeholder="Please select date" type="text" >#}
-{#                        </div>#}
-{#                      </div>#}
-{#                    </div>#}
-{#                  </div>#}
+          <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+  {#          <main class="content">#}
+              <div>
+                {% with messages = get_flashed_messages() %}
+                  {% for message in messages %}
+                      {% if message %}
+                          <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop alert alert-warning" role="alert">{{ message }}</div>
+                      {% endif %}
+                  {% endfor %}
+                {% endwith %}
+                {% if form and form.errors %}
+                    {% for key, error in form.errors.items() %}
+                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop alert alert-warning" role="alert">{{ "{}-{}".format(key, error) }}</div>
+                    {% endfor %}
+                {% endif %}
+              </div>
+              {% block frame %}
 
-          {% endblock %}
+              {% endblock %}
+            </div>
+          </div>
+
         </main>
         <!-- partial:../../partials/_footer.html -->
         <footer>

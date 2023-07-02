@@ -13,12 +13,12 @@
             </tr>
           </thead>
           <tbody>
-            {% for occupation in occupations %}
-              <form action="{{ url_for('web.occupation') }}" method="post">
+            {% for position in positions %}
+              <form action="{{ url_for('web.position') }}" method="post">
                 <tr>
-                  <td class="text-center">{{ occupation.occupation }}</td>
+                  <td class="text-center">{{ position.position }}</td>
                   <td class="text-center">
-                    <a href="{{ url_for('web.occupation_del', occupation_id=occupation.occupation_id) }}">删除</a>
+                    <a href="{{ url_for('web.position_del', position_id=position.position_id) }}">删除</a>
                   </td>
                 </tr>
               </form>
@@ -37,7 +37,7 @@
           <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
             <div class="mdc-card">
               <div class="template-demo">
-                <form action="{{ url_for('web.occupation') }}" method="post">
+                <form action="{{ url_for('web.position') }}" method="post">
                   <div class="mdc-text-field">
                   <input class="mdc-text-field__input" id="text-field-hero-input" name="name">
                   <div class="mdc-line-ripple"></div>

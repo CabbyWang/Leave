@@ -1,51 +1,74 @@
-{% extends "base.html" %}
+{% extends "new_base.html" %}
 
-{% block content %}
-    <div class="row">
-
-        <div class="col-md-8 order-md-1">
-          <div class="container">
-          <h4 class="mb-3">审批级别维护</h4>
-          <form class="needs-validation" method="post" novalidate>
-{#          {{ delete_form.csrf_token }}#}
-            <table class="table table-striped">
-              <thead>
+{% block frame %}
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0">
+      <h6 class="card-title card-padding pb-0">审批级别列表(审批权限)</h6>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="text-center">审批级别</th>
+              <th class="text-center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for level in levels %}
+              <form action="{{ url_for('web.level') }}" method="post">
                 <tr>
-                  <th scope="col"></th>
-                  <th scope="col">审批级别</th>
-                  <th scope="col">操作</th>
+                  <td class="text-center">{{ level.level }}</td>
+                  <td class="text-center"><a href="{{ url_for('web.level_del', level_id=level.level_id) }}">删除</a></td>
                 </tr>
-              </thead>
-              <tbody>
-                {% for id, level in levels.items() %}
-                    <tr>
-                      <th  scope="row"><input type="text" class="form-control col-md-1" name="id" value="{{ id }}" hidden></th>
-                      <td> {{ level }} </td>
-{#                      <td><button type="button" class="btn btn-dark" name="{{ id }}">删除</button></td>#}
-                      <td><a href="{{ url_for('web.level_del', level_id=id) }}">删除</a></td>
-                    </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+              </form>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-
-            <hr class="mb-4">
-          </form>
-
-          <!-- 新增审批级别 -->
-          <form class="card p-2" method="post">
-{#              {{ add_form.csrf_token }}#}
-            <div class="input-group">
-              <input type="text" class="form-control"
-                     name="name"
-                     placeholder="请输入级别后, 点击新增">
-              <div class="input-group-append">
-                <button type="submit" class="btn btn-success">新增</button>
+  <div class="mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+      <h6 class="card-title">新增审批级别</h6>
+      <div class="template-demo">
+        <div class="mdc-layout-grid__inner">
+          <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+            <div class="mdc-card">
+              <div class="template-demo">
+                <form action="{{ url_for('web.level') }}" method="post">
+                  <div class="mdc-text-field">
+                  <input class="mdc-text-field__input" id="text-field-hero-input" name="name">
+                  <div class="mdc-line-ripple"></div>
+                    <label for="text-field-hero-input" class="mdc-floating-label">Name</label>
+                  </div>
+                  <button class="mdc-button mdc-button--raised filled-button--success">
+                        新增
+                  </button>
+                </form>
               </div>
             </div>
-          </form>
-
+          </div>
         </div>
       </div>
     </div>
+  </div>
+
+
+
+
+
+{#                      <th  scope="row"><input type="text" class="form-control col-md-1" name="id" value="{{ id }}" hidden></th>#}
+
+          <!-- 新增交通工具 -->
+{#          <form class="card p-2" method="post">#}
+{#              {{ add_form.csrf_token }}#}
+{#            <div class="input-group">#}
+{#              <input type="text" class="form-control"#}
+{#                     name="name"#}
+{#                     placeholder="请输入部门后, 点击新增">#}
+{#              <div class="input-group-append">#}
+{#                <button type="submit" class="btn btn-success">新增</button>#}
+{#              </div>#}
+{#            </div>#}
+{#          </form>#}
 {% endblock %}

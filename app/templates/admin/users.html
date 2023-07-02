@@ -1,45 +1,70 @@
-{% extends "base.html" %}
+{% extends "new_base.html" %}
 
-{% block content %}
-    <div class="row">
-
-        <div class="col-md-8 order-md-1">
-          <div class="container">
-          <h4 class="mb-3">用户管理</h4>
-          <!-- TODO 搜索框 通过 姓名 部门 人员类别 审批级别 进行搜索-->
-{#          <div class="card mb-3" style="max-width: 540px;">#}
-{#              <div class="row no-gutters">#}
-{#                <div class="col-md-4">#}
-{#                    #}
-{#                </div>#}
-{#                <div class="col-md-8">#}
-{#                  <div class="card-body">#}
-{#                    <h5 class="card-title">Card title</h5>#}
-{#                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>#}
-{#                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>#}
-{#                  </div>#}
-{#                </div>#}
-{#              </div>#}
-{#          </div>#}
-
-          <div class="card-columns">
-              {%  for user in users %}
-                  <div class="card" onclick="window.location.href='{{ url_for( 'web.user', user_id=user.user_id) }}'">
-{#                    <img class="card-img-top" src="..." alt="Card image cap">#}
-                    <div class="card-body">
-                      <h4 class="card-title">{{ user.name }}</h4>
-                      <p class="card-text">- -</p>
-                      <p class="card-text"><small class="text-muted">Create by {{ user.create_time }}</small></p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item"><span>部门:</span> {{ user.section | default('暂无', true) }}</li>
-                      <li class="list-group-item"><span>人员类别:</span> {{ user.occupation | default('暂无', true) }}</li>
-                      <li class="list-group-item"><span>审批级别:</span> {{ user.level | default('暂无', true) }}</li>
-                    </ul>
-                  </div>
-              {% endfor %}
-            </div>
-        </div>
+{% block frame %}
+  <!-- TODO 搜索框 通过 姓名 部门 人员类别 审批级别 进行搜索-->
+  <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card p-0">
+      <h6 class="card-title card-padding pb-0">
+        用户列表
+{#        <button class="mdc-button mdc-button--raised filled-button--success">#}
+{#          新增用户#}
+{#        </button>#}
+      </h6>
+      <div class="table-responsive">
+      <form method="post">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="text-center">姓名</th>
+              <th class="text-center">登录用户名</th>
+              <th class="text-center">联系方式</th>
+              <th class="text-center">身份证号</th>
+              <th class="text-center">人员类别</th>
+              <th class="text-center">科室/部门</th>
+              <th class="text-center">所属片区</th>
+              <th class="text-center">岗位类别</th>
+              <th class="text-center">学部</th>
+              <th class="text-center">审批级别(审批权限)</th>
+              <th class="text-center">是否中心其他常委</th>
+              <th class="text-center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+{#              <form method="post">#}
+                <tr>
+                  <td class="text-center">{{ user.name }}</td>
+                  <td class="text-center">{{ user.username }}</td>
+                  <td class="text-center">{{ user.phone_number }}</td>
+                  <td class="text-center">{{ user.id_card_number }}</td>
+                  <td class="text-center">{{ user.occupation }}</td>
+                  <td class="text-center">{{ user.section }}</td>
+                  <td class="text-center">{{ user.area }}</td>
+                  <td class="text-center">{{ user.position }}</td>
+                  <td class="text-center">{{ user.xuebu }}</td>
+                  <td class="text-center">{{ user.level }}</td>
+                  <td class="text-center">{{ user.committee_member }}</td>
+                  <td class="text-center">
+{#                    <a href="{{ url_for('web.user', user_id=user.user_id) }}">修改</a>#}
+                    <button class="mdc-button mdc-button--raised filled-button--info"
+                            type="button"
+                            onclick="window.location.href='{{ url_for('web.user', user_id=user.user_id) }}'">
+                      编辑
+                    </button>
+{#                    <a class="mdc-button" href="{{ url_for('web.user_del', user_id=user.user_id) }}">删除</a>#}
+                    <button class="mdc-button mdc-button--raised filled-button--warning"
+                            onclick="window.location.href='{{ url_for('web.user_del', user_id=user.user_id) }}'">
+                      删除
+                    </button>
+                  </td>
+                </tr>
+{#              </form>#}
+            {% endfor %}
+          </tbody>
+        </table>
+      </form>
       </div>
     </div>
+  </div>
+
 {% endblock %}
