@@ -12,5 +12,7 @@ class Config:
     WTF_CSRF_SECRET_KEY = 'IT 666 to 709 kill pic'
     WTF_CSRF_CHECK_DEFAULT = False
 
+    PAGINATION_PER_PAGE = 10
+
     ADMIN = 'admin'
     DEBUG = True

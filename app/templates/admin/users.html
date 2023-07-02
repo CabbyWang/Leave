@@ -62,6 +62,37 @@
             {% endfor %}
           </tbody>
         </table>
+        <div class="col-4 mx-auto">
+          <ul class="pagination pagination-primary m-4">
+            {% if pagination.has_prev %}
+              <li class="page-item">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                <a class="page-link" href=" {{ url_for('web.users', page=pagination.prev_num) }} " aria-label="Previous">
+                  <span aria-hidden="true">{{ '<<<' }}</span>
+                </a>
+              </li>
+            {% endif %}
+            {% for number in pagination.iter_pages() %}
+              {% if pagination.page == number %}
+                <li class="page-item active">
+                  <a class="page-link" href="">{{ number }}</a>
+                </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="{{ url_for('web.users', page=number) }}">{{ number }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+
+            {% if pagination.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="{{ url_for('web.users', page=pagination.next_num) }}" aria-label="Next">
+                  <span aria-hidden="true">{{ '>>>' }}</span>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
       </form>
       </div>
     </div>

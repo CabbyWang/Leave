@@ -1,86 +1,86 @@
 {% extends "new_base.html" %}
 
 {% block frame %}
-      <div class="page-wrapper mdc-toolbar-fixed-adjust">
-        <main class="content-wrapper">
+{#  <div class="page-wrapper mdc-toolbar-fixed-adjust">#}
+{#    <main class="content-wrapper">#}
 
-          <div class="mdc-layout-grid">
-            <div class="mdc-layout-grid__inner">
-              <div class="mdc-layout-grid__cell--span-12">
-                <div class="mdc-card">
-                  <form action="" method="post">
-                    <h6 class="card-title">请假申请</h6>
-                    <div class="template-demo">
-                      <div class="mdc-layout-grid__inner">
-                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
-                          <div class="mdc-text-field mdc-text-field--outlined">
-                            <input class="mdc-text-field__input" id="text-field-hero-input" name="cause">
-                            <div class="mdc-notched-outline">
-                              <div class="mdc-notched-outline__leading"></div>
-                              <div class="mdc-notched-outline__notch">
-                                <label for="text-field-hero-input" class="mdc-floating-label">请假原因</label>
-                              </div>
-                              <div class="mdc-notched-outline__trailing"></div>
-                            </div>
+{#      <div class="mdc-layout-grid">#}
+{#        <div class="mdc-layout-grid__inner">#}
+          <div class="mdc-layout-grid__cell--span-12">
+            <div class="mdc-card">
+              <form action="" method="post">
+                <h6 class="card-title">请假申请</h6>
+                <div class="template-demo">
+                  <div class="mdc-layout-grid__inner">
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-text-field mdc-text-field--outlined">
+                        <input class="mdc-text-field__input" id="text-field-hero-input" name="cause">
+                        <div class="mdc-notched-outline">
+                          <div class="mdc-notched-outline__leading"></div>
+                          <div class="mdc-notched-outline__notch">
+                            <label for="text-field-hero-input" class="mdc-floating-label">请假原因</label>
                           </div>
-                        </div>
-                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
-                          <div class="mdc-text-field mdc-text-field--outlined">
-                            <input class="mdc-text-field__input" id="text-field-hero-input" name="destination">
-                            <div class="mdc-notched-outline">
-                              <div class="mdc-notched-outline__leading"></div>
-                              <div class="mdc-notched-outline__notch">
-                                <label for="text-field-hero-input" class="mdc-floating-label">目的地</label>
-                              </div>
-                              <div class="mdc-notched-outline__trailing"></div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
-                            <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
-                            <input type="hidden" name="vehicle_id">
-                            <i class="mdc-select__dropdown-icon"></i>
-                            <div class="mdc-select__selected-text"></div>
-                            <div class="mdc-select__menu mdc-menu-surface demo-width-class">
-                              <ul class="mdc-list">
-                                <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
-                                </li>
-                                {% for vehicle in vehicles %}
-                                  <li class="mdc-list-item" data-value="{{ vehicle.vehicle_id }}">
-                                    {{ vehicle.vehicle }}
-                                  </li>
-                                {% endfor %}
-                              </ul>
-                            </div>
-                            <span class="mdc-floating-label">交通工具</span>
-                            <div class="mdc-line-ripple"></div>
-                        </div>
-                        </div>
-                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
-                          <div class="mdc-card border-1">
-                            <label for="text-field-hero-input" class="card-title">离开日期</label>
-                            <input class="form-control datepicker" placeholder="请输入日期" type="text" name="leave_date" >
-                          </div>
-                        </div>
-                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
-                          <div class="mdc-card">
-                            <label for="text-field-hero-input" class="card-title">返回日期</label>
-                            <input class="form-control datepicker" placeholder="请输入日期" type="text" name="back_date" >
-                          </div>
-                        </div>
-                        <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
-                          <button class="mdc-button mdc-button--unelevated filled-button--secondary">
-                          申请
-                        </button>
+                          <div class="mdc-notched-outline__trailing"></div>
                         </div>
                       </div>
                     </div>
-                  </form>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                      <div class="mdc-text-field mdc-text-field--outlined">
+                        <input class="mdc-text-field__input" id="text-field-hero-input" name="destination">
+                        <div class="mdc-notched-outline">
+                          <div class="mdc-notched-outline__leading"></div>
+                          <div class="mdc-notched-outline__notch">
+                            <label for="text-field-hero-input" class="mdc-floating-label">目的地</label>
+                          </div>
+                          <div class="mdc-notched-outline__trailing"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12-desktop">
+                        <div class="mdc-select demo-width-class" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="vehicle_id">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu-surface demo-width-class">
+                          <ul class="mdc-list">
+                            <li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true">
+                            </li>
+                            {% for vehicle in vehicles %}
+                              <li class="mdc-list-item" data-value="{{ vehicle.vehicle_id }}">
+                                {{ vehicle.vehicle }}
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        <span class="mdc-floating-label">交通工具</span>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+                      <div class="mdc-card border-1">
+                        <label for="text-field-hero-input" class="card-title">离开日期</label>
+                        <input class="form-control datepicker" placeholder="请输入日期" type="text" name="leave_date" >
+                      </div>
+                    </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+                      <div class="mdc-card">
+                        <label for="text-field-hero-input" class="card-title">返回日期</label>
+                        <input class="form-control datepicker" placeholder="请输入日期" type="text" name="back_date" >
+                      </div>
+                    </div>
+                    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
+                      <button class="mdc-button mdc-button--unelevated filled-button--secondary">
+                      申请
+                    </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
+{#        </div>#}
+{#      </div>#}
 
-        </main>
-      </div>
+{#    </main>#}
+{#  </div>#}
 {% endblock %}

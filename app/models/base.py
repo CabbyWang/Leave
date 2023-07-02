@@ -3,9 +3,10 @@ from contextlib import contextmanager
 from datetime import datetime
 
 from flask import current_app
-from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy, BaseQuery
+from flask_sqlalchemy.pagination import QueryPagination as _QueryPagination
 from sqlalchemy import Column, SmallInteger, Integer
-from sqlalchemy.orm.query import Query as _Query
+# from sqlalchemy.orm.query import Query as _Query
 
 __all__ = ['db', 'Base']
 
@@ -23,7 +24,15 @@ class SQLAlchemy(_SQLAlchemy):
                 raise e
 
 
-class Query(_Query):
+# class QueryPagination(_QueryPagination):
+#
+#     def _query_items(self):
+#         query = self._query_args["query"]
+#         out = query.limit(self.per_page).offset(self._query_offset).all()
+#         return out  # type: ignore[no-any-return]
+
+
+class Query(BaseQuery):
     def filter_by(self, **kwargs):
         if 'status' not in kwargs.keys():
             kwargs['status'] = 1

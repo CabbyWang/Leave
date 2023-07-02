@@ -1,13 +1,13 @@
-from flask import render_template, redirect
+from flask import render_template, redirect, current_app
 from flask import request, url_for
 from flask_login import login_required
 
 from app.models import db
-from app.view_models.role import SectionInfo
+from app.view_models.role import SectionInfo, AreaInfo, XueBuInfo
 
 from app.web import web
 
-from app.models.role import Section
+from app.models.role import Section, Area, XueBu
 from app.forms.admin import AddSectionForm
 
 
@@ -43,7 +43,23 @@ def section():
         db.session.add(v)
         db.session.commit()
         return redirect(url_for('web.section'))
-    return render_template('admin/section.html', sections=[SectionInfo(s) for s in Section.get_all_sections()])
+    page = request.args.get('page', 1, type=int)
+    pagination = Section.query.filter_by().order_by(Section.id).paginate(
+        page=page, per_page=current_app.config['PAGINATION_PER_PAGE']
+    )
+    return render_template(
+        'admin/section.html', pagination=pagination, sections=[SectionInfo(s) for s in pagination.items],
+        areas=[AreaInfo(a) for a in Area.get_all_areas()],
+        xuebus=[XueBuInfo(x) for x in XueBu.get_all_xuebus()],
+        office_sections=[SectionInfo(s) for s in Section.query.filter_by(is_office=1).all()]
+    )
+    # return render_template(
+    #     'admin/section.html',
+    #     sections=[SectionInfo(s) for s in Section.get_all_sections()],
+    #     areas=[AreaInfo(a) for a in Area.get_all_areas()],
+    #     xuebus=[XueBuInfo(x) for x in XueBu.get_all_xuebus()],
+    #     office_sections=[SectionInfo(s) for s in Section.query.filter_by(is_office=1).all()]
+    # )
 
 
 

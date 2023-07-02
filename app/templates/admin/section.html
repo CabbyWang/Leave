@@ -1,65 +1,194 @@
 {% extends "new_base.html" %}
-
 {% block frame %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="{{ url_for('web.section') }}" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">新增科室/部门</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="mdc-text-field mdc-text-field--outlined ">
+            <input class="mdc-text-field__input" id="text-field-hero-input" name="name">
+            <div class="mdc-notched-outline">
+              <div class="mdc-notched-outline__leading"></div>
+              <div class="mdc-notched-outline__notch">
+                <label for="text-field-hero-input" class="mdc-floating-label">请输入科室/部门</label>
+              </div>
+              <div class="mdc-notched-outline__trailing"></div>
+            </div>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <span>所属片区</span>
+              <select name="area_id" id="area_id">
+                <option value=""></option>
+                {% for area in areas %}
+                  <option value="{{ area.area_id }}">{{ area.area }}</option>
+                {% endfor %}
+              </select>
+            </li>
+            <li class="list-group-item">
+              <span>学部</span>
+              <select name="xuebu_id" id="xuebu_id">
+                <option value=""></option>
+                {% for xuebu in xuebus %}
+                  <option value="{{ xuebu.xuebu_id }}">{{ xuebu.xuebu }}</option>
+                {% endfor %}
+              </select>
+            </li>
+            <li class="list-group-item">
+              <span>是否机关</span>
+              <select name="is_office" id="is_office">
+                <option value=""></option>
+                  <option value="0">非机关</option>
+                  <option value="1">机关</option>
+              </select>
+            </li>
+            <li class="list-group-item">
+              <span>所属部门</span>
+              <select name="parent_id" id="parent_id">
+                <option value=""></option>
+                {% for parent_section in office_sections %}
+                  <option value="{{ parent_section.section_id }}">{{ parent_section.section }}</option>
+                {% endfor %}
+              </select>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
     <div class="mdc-card p-0">
-      <h6 class="card-title card-padding pb-0">科室/部门</h6>
+      <h6 class="card-title card-padding pb-0">
+        科室/部门
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          新增
+        </button>
+      </h6>
       <div class="table-responsive">
-        <form action="{{ url_for('web.section') }}" method="post">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th class="text-center">科室/部门</th>
-                <th class="text-center">所属片区</th>
-                <th class="text-center">学部</th>
-                <th class="text-center">机关标志</th>
-                <th class="text-center">所属部门</th>
-                <th class="text-center">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for section in sections %}
+{#        <form action="{{ url_for('web.section') }}" method="post">#}
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="text-center">科室/部门</th>
+              <th class="text-center">所属片区</th>
+              <th class="text-center">学部</th>
+              <th class="text-center">机关标志</th>
+              <th class="text-center">所属部门</th>
+              <th class="text-center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for section in sections %}
 
-                  <tr>
-                    <td class="text-center">{{ section.section }}</td>
-                    <td class="text-center">{{ section.area }}</td>
-                    <td class="text-center">{{ section.xuebu }}</td>
-                    <td class="text-center">{{ section.is_office }}</td>
-                    <td class="text-center">{{ section.parent_section }}</td>
-                    <td class="text-center"><a href="{{ url_for('web.section_del', section_id=section.section_id) }}">删除</a></td>
-                  </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </form>
+                <tr>
+                  <td class="text-center">{{ section.section }}</td>
+                  <td class="text-center">{{ section.area }}</td>
+                  <td class="text-center">{{ section.xuebu }}</td>
+                  <td class="text-center">{{ section.is_office }}</td>
+                  <td class="text-center">{{ section.parent_section }}</td>
+                  <td class="text-center"><a href="{{ url_for('web.section_del', section_id=section.section_id) }}">删除</a></td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="col-4 mx-auto">
+          <ul class="pagination pagination-primary m-4">
+            {% if pagination.has_prev %}
+              <li class="page-item">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                <a class="page-link" href=" {{ url_for('web.section', page=pagination.prev_num) }} " aria-label="Previous">
+                  <span aria-hidden="true">{{ '<<<' }}</span>
+                </a>
+              </li>
+            {% endif %}
+            {% for number in pagination.iter_pages() %}
+              {% if pagination.page == number %}
+                <li class="page-item active">
+                  <a class="page-link" href="">{{ number }}</a>
+                </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="{{ url_for('web.section', page=number) }}">{{ number }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+
+            {% if pagination.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="{{ url_for('web.section', page=pagination.next_num) }}" aria-label="Next">
+                  <span aria-hidden="true">{{ '>>>' }}</span>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+
+{#        </form>#}
       </div>
     </div>
   </div>
 
-  <div class="mdc-layout-grid__cell--span-12">
-    <div class="mdc-card">
-      <h6 class="card-title">新增科室/部门</h6>
-      <div class="template-demo">
-        <div class="mdc-layout-grid__inner">
-          <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">
-            <div class="mdc-card">
-              <div class="template-demo">
-                <form action="{{ url_for('web.section') }}" method="post">
-                  <div class="mdc-text-field">
-                  <input class="mdc-text-field__input" id="text-field-hero-input" name="name">
-                  <div class="mdc-line-ripple"></div>
-                    <label for="text-field-hero-input" class="mdc-floating-label">Name</label>
-                  </div>
-                  <button class="mdc-button mdc-button--raised filled-button--success">
-                        新增
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Your modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Society has put up so many boundaries, so many limitations on what’s right and wrong that it’s almost impossible to get a pure thought out.
+          <br><br>
+          It’s like a little kid, a little boy, looking at colors, and no one told him what colors are good, before somebody tells you you shouldn’t like pink because that’s for girls, or you’d instantly become a gay two-year-old.
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn bg-gradient-primary">Save changes</button>
         </div>
       </div>
     </div>
   </div>
+{#  <div class="mdc-layout-grid__cell--span-12">#}
+{#    <div class="mdc-card">#}
+{#      <h6 class="card-title">新增科室/部门</h6>#}
+{#      <div class="template-demo">#}
+{#        <div class="mdc-layout-grid__inner">#}
+{#          <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-6-desktop">#}
+{#            <div class="mdc-card">#}
+{#              <div class="template-demo">#}
+{#                <form action="{{ url_for('web.section') }}" method="post">#}
+{#                  <div class="mdc-text-field">#}
+{#                  <input class="mdc-text-field__input" id="text-field-hero-input" name="name">#}
+{#                  <div class="mdc-line-ripple"></div>#}
+{#                    <label for="text-field-hero-input" class="mdc-floating-label">Name</label>#}
+{#                  </div>#}
+{#                  <button type="button" class="mdc-button mdc-button--raised filled-button--success" data-toggle="modal" data-target="#exampleModal">#}
+{#                        新增#}
+{#                  </button>#}
+{##}
+{#                </form>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
 
 {% endblock %}

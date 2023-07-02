@@ -1,4 +1,4 @@
-from flask import render_template, redirect
+from flask import render_template, redirect, current_app
 from flask import request, url_for
 from flask_login import login_required
 
@@ -11,8 +11,6 @@ from app.web import web
 
 from app.models.auth import User
 from app.models.role import Section, Level, Occupation, XueBu, Area, Position
-
-# from app.forms.admin import AddUserForm
 
 
 __author__ = 'cabbyw'
@@ -41,8 +39,12 @@ def user_del(user_id):
 @web.route('/users', methods=['GET', 'POST'])
 @login_required
 def users():
+    page = request.args.get('page', 1, type=int)
+    pagination = User.query.filter_by().order_by(User.id).paginate(
+        page=page, per_page=current_app.config['PAGINATION_PER_PAGE']
+    )
     return render_template(
-        'admin/users.html', users=[UserInfo(u) for u in User.get_all_users()]
+        'admin/users.html', pagination=pagination, users=[UserInfo(u) for u in pagination.items]
     )
 
 

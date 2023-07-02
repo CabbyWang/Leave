@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Material Dash</title>
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='3rd/bootstrap4.6/bootstrap.min.css') }}">
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{ url_for('static', filename='3rd/base/vendors/mdi/css/materialdesignicons.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='3rd/base/vendors/css/vendor.bundle.base.css') }}">
@@ -18,7 +20,7 @@
   <!-- datepicker -->
 {#  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />#}
 {#  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='3rd/base/fonts/material_icons.css') }}" />#}
-  <script src="{{ url_for('static', filename='3rd/datepicker/images/fontawesome.js') }}https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='3rd/datepicker/images/fontawesome.js') }}"></script>
   <!-- Material Icons -->
 {#  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">#}
   <link href="{{ url_for('static', filename='3rd/base/css/google_icon.css') }}" rel="stylesheet">
@@ -182,7 +184,15 @@
         <div class="mdc-top-app-bar__row">
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
             <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button sidebar-toggler">menu</button>
-            <span class="mdc-top-app-bar__title">早上下午晚上好 !</span>
+            <span class="mdc-top-app-bar__title">
+              {% if current_hour < 12 %}
+                上午好！
+              {% elif current_hour < 18 %}
+                下午好！
+              {% else %}
+                晚上好!
+              {% endif %}
+            </span>
           </div>
           <div class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end mdc-top-app-bar__section-right">
             <div class="menu-button-container menu-profile d-none d-md-block">
@@ -388,6 +398,9 @@
       </div>
     </div>
   </div>
+  <!-- bootstrap js -->
+  <script src="{{ url_for('static', filename='3rd/bootstrap4.6/jquery-3.5.1.slim.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='3rd/bootstrap4.6/bootstrap.bundle.min.js') }}"></script>
   <!-- plugins:js -->
   <script src="{{ url_for('static', filename='3rd/base/vendors/js/vendor.bundle.base.js') }}"></script>
   <!-- endinject -->
@@ -410,6 +423,9 @@
       });
     }
   </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>#}
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>#}
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->

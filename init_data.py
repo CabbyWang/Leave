@@ -10,114 +10,114 @@ with app.app_context():
     # 护士长账号 科室主任账号 协理员账号
     with db.auto_commit():
         vehicle1 = Vehicle()
-        vehicle1.id = 1
+        # vehicle1.id = 1
         vehicle1.name = '火车'
         db.session.add(vehicle1)
         vehicle2 = Vehicle()
-        vehicle2.id = 2
+        # vehicle2.id = 2
         vehicle2.name = '高铁'
         db.session.add(vehicle2)
         vehicle3 = Vehicle()
-        vehicle3.id = 3
+        # vehicle3.id = 3
         vehicle3.name = '自驾'
         db.session.add(vehicle3)
 
         occupation_pinyong = Occupation()
-        occupation_pinyong.id = 1
+        # occupation_pinyong.id = 1
         occupation_pinyong.name = '聘用人员'
         db.session.add(occupation_pinyong)
         occupation_js = Occupation()
-        occupation_js.id = 2
+        # occupation_js.id = 2
         occupation_js.name = '军士'
         db.session.add(occupation_js)
         occupation_jg = Occupation()
-        occupation_jg.id = 3
+        # occupation_jg.id = 3
         occupation_jg.name = '军官'
         db.session.add(occupation_jg)
         occupation_ywb = Occupation()
-        occupation_ywb.id = 4
+        # occupation_ywb.id = 4
         occupation_ywb.name = '义务兵'
         db.session.add(occupation_ywb)
         occupation_wz = Occupation()
-        occupation_wz.id = 5
+        # occupation_wz.id = 5
         occupation_wz.name = '文职'
         db.session.add(occupation_wz)
         occupation_gq = Occupation()
-        occupation_gq.id = 6
+        # occupation_gq.id = 6
         occupation_gq.name = '公勤人员'
         db.session.add(occupation_gq)
 
         area1 = Area()
-        area1.id = 1
+        # area1.id = 1
         area1.name = '一片区'
         db.session.add(area1)
         area2 = Area()
-        area2.id = 2
+        # area2.id = 2
         area2.name = '二片区'
         db.session.add(area2)
         area3 = Area()
-        area3.id = 3
+        # area3.id = 3
         area3.name = '三片区'
         db.session.add(area3)
 
         xuebu_gk = XueBu()
-        xuebu_gk.id = 1
+        # xuebu_gk.id = 1
         xuebu_gk.name = '骨科医学部'
         db.session.add(xuebu_gk)
         xuebu_ss = XueBu()
-        xuebu_ss.id = 2
+        # xuebu_ss.id = 2
         xuebu_ss.name = '烧伤医学部'
         xuebu_ss.name = '烧伤医学部'
         db.session.add(xuebu_ss)
 
         section_xhk = Section()
-        section_xhk.id = 1
+        # section_xhk.id = 1
         section_xhk.name = '消化科'
         section_xhk.area = area1
         db.session.add(section_xhk)
         section_wqb = Section()
-        section_wqb.id = 2
+        # section_wqb.id = 2
         section_wqb.name = '卫勤部'
         section_wqb.is_office = 1
         db.session.add(section_wqb)
         section_kyb = Section()
-        section_kyb.id = 3
+        # section_kyb.id = 3
         section_kyb.name = '科研办'
         section_kyb.is_office = 1
         section_kyb.parent_section = section_wqb
         db.session.add(section_kyb)
         section_hlb = Section()
-        section_hlb.id = 4
+        # section_hlb.id = 4
         section_hlb.name = '护理部'
         section_hlb.is_office = 1
         db.session.add(section_hlb)
         section_zz = Section()
-        section_zz.id = 5
+        # section_zz.id = 5
         section_zz.name = '政治工作部'
         section_zz.is_office = 1
         db.session.add(section_zz)
         section_xxk = Section()
-        section_xxk.id = 6
+        # section_xxk.id = 6
         section_xxk.name = '信息科'
         section_xxk.area = area1
         db.session.add(section_xxk)
         section_bzb = Section()
-        section_bzb.id = 7
+        # section_bzb.id = 7
         section_bzb.name = '保障部'
         section_bzb.is_office = 1
         db.session.add(section_bzb)
         section_qw = Section()
-        section_qw.id = 8
+        # section_qw.id = 8
         section_qw.name = '勤务保障分队'
         db.session.add(section_qw)
         section_gj = Section()
-        section_gj.id = 9
+        # section_gj.id = 9
         section_gj.name = '关节外科'
         section_gj.area = area1
         section_gj.xuebu = xuebu_gk
         db.session.add(section_gj)
         section_ss = Section()
-        section_ss.id = 10
+        # section_ss.id = 10
         section_ss.name = '烧一'
         section_ss.area = area2
         section_ss.xuebu = xuebu_ss
@@ -125,108 +125,108 @@ with app.app_context():
 
 
         position_hs = Position()
-        position_hs.id = 1
+        # position_hs.id = 1
         position_hs.name = '护士'
         db.session.add(position_hs)
         position_hsz = Position()
-        position_hsz.id = 2
+        # position_hsz.id = 2
         position_hsz.name = '护士长'
         db.session.add(position_hsz)
         position_fdz = Position()
-        position_fdz.id = 3
+        # position_fdz.id = 3
         position_fdz.name = '分队长'
         db.session.add(position_fdz)
         position_yxbzr = Position()
-        position_yxbzr.id = 4
+        # position_yxbzr.id = 4
         position_yxbzr.name = '医学部主任'
         db.session.add(position_yxbzr)
         position_yxbfzf = Position()
-        position_yxbfzf.id = 5
+        # position_yxbfzf.id = 5
         position_yxbfzf.name = '医学部副主任'
         db.session.add(position_yxbfzf)
         position_zr = Position()
-        position_zr.id = 6
+        # position_zr.id = 6
         position_zr.name = '主任'
         db.session.add(position_zr)
         position_fzr = Position()
-        position_fzr.id = 7
+        # position_fzr.id = 7
         position_fzr.name = '副主任'
         db.session.add(position_fzr)
         position_bz = Position()
-        position_bz.id = 8
+        # position_bz.id = 8
         position_bz.name = '部长'
         db.session.add(position_bz)
         position_fbz = Position()
-        position_fbz.id = 9
+        # position_fbz.id = 9
         position_fbz.name = '副部长'
         db.session.add(position_fbz)
         position_zxzr = Position()
-        position_zxzr.id = 10
+        # position_zxzr.id = 10
         position_zxzr.name = '中心主任'
         db.session.add(position_zxzr)
         position_zw = Position()
-        position_zw.id = 11
+        # position_zw.id = 11
         position_zw.name = '政委'
         db.session.add(position_zw)
         position_xly = Position()
-        position_xly.id = 12
+        # position_xly.id = 12
         position_xly.name = '协理员'
         db.session.add(position_xly)
         position_qt = Position()
-        position_qt.id = 13
+        # position_qt.id = 13
         position_qt.name = '其他工作人员'
         db.session.add(position_qt)
 
         level_zw = Level()
-        level_zw.id = 1
+        # level_zw.id = 1
         level_zw.name = '政委'
         db.session.add(level_zw)
         level_zxzr = Level()
-        level_zxzr.id = 2
+        # level_zxzr.id = 2
         level_zxzr.name = '中心主任'
         db.session.add(level_zxzr)
         level_yxbzr = Level()
-        level_yxbzr.id = 3
+        # level_yxbzr.id = 3
         level_yxbzr.name = '医学部主任'
         db.session.add(level_yxbzr)
         level_yxbfzr = Level()
-        level_yxbfzr.id = 4
+        # level_yxbfzr.id = 4
         level_yxbfzr.name = '医学部副主任'
         db.session.add(level_yxbfzr)
         level_zr = Level()
-        level_zr.id = 5
+        # level_zr.id = 5
         level_zr.name = '主任'
         db.session.add(level_zr)
         level_fzr = Level()
-        level_fzr.id = 6
+        # level_fzr.id = 6
         level_fzr.name = '副主任'
         db.session.add(level_fzr)
         level_bz = Level()
-        level_bz.id = 7
+        # level_bz.id = 7
         level_bz.name = '部长'
         db.session.add(level_bz)
         level_fbz = Level()
-        level_fbz.id = 8
+        # level_fbz.id = 8
         level_fbz.name = '副部长'
         db.session.add(level_fbz)
         level_fdz = Level()
-        level_fdz.id = 9
+        # level_fdz.id = 9
         level_fdz.name = '分队长'
         db.session.add(level_fdz)
         level_xly = Level()
-        level_xly.id = 10
+        # level_xly.id = 10
         level_xly.name = '协理员'
         db.session.add(level_xly)
         level_yxbxly = Level()
-        level_yxbxly.id = 11
+        # level_yxbxly.id = 11
         level_yxbxly.name = '医学部协理员'
         db.session.add(level_yxbxly)
         level_lly = Level()
-        level_lly.id = 12
+        # level_lly.id = 12
         level_lly.name = '协理员(联络员)'
         db.session.add(level_lly)
         level_hsz = Level()
-        level_hsz.id = 13
+        # level_hsz.id = 13
         level_hsz.name = '护士长'
         db.session.add(level_hsz)
 

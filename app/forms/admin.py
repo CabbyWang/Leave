@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import Form, StringField, SubmitField, IntegerField
+from wtforms import Form, StringField, SubmitField, IntegerField, Field
 from wtforms.validators import DataRequired
 
 
@@ -33,6 +33,10 @@ class AddOccupationForm(Form):
 class AddSectionForm(Form):
 
     name = StringField('section', validators=[DataRequired()])
+    area_id = Field()
+    xuebu_id = Field()
+    is_office = Field()
+    parent_id = Field()
 
 
 class AddXuebuForm(Form):

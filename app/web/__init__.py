@@ -1,3 +1,5 @@
+import datetime
+
 from flask import Blueprint, url_for
 
 __author__ = 'cabbyw'
@@ -19,3 +21,13 @@ from app.web.admin import area
 from app.web.admin import xuebu
 from app.web.admin import position
 # from app.web.approve import approve
+
+
+@web.context_processor
+def inject_current_hour():
+    return {"current_hour": datetime.datetime.now().hour}
+
+
+# @web.context_processor
+# def inject_current_time():
+#     return {"current_time": datetime.datetime.now().time()}
